@@ -3,12 +3,11 @@ import { StyleSheet, Text, View } from 'react-native'
 
 export default function App() {
     return (
-        /*
-        <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
-            <StatusBar style='auto' />
-        </View>
-        */
+        <div>
+            <input placeholder='email' />
+            <input type='password' placeholder='password' />
+            <button>로그인</button>
+        </div>
     )
 }
 
