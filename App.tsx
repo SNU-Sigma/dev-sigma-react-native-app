@@ -1,13 +1,14 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 
 export default function App() {
+    const onPress = () => {}
     return (
-        <div>
-            <input placeholder='email' />
-            <input type='password' placeholder='password' />
-            <button>로그인</button>
-        </div>
+        <View>
+            <TextInput />
+            <TextInput />
+            <Button title='버튼' onPress={onPress} />
+        </View>
     )
 }
 
