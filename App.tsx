@@ -3,7 +3,9 @@ import { View, Text, TextInput, Button } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-function HomeScreen(navigation: any) {
+type Props = { navigation: any }
+
+function HomeScreen({ navigation }: Props) {
     return (
         <View
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
@@ -18,7 +20,7 @@ function HomeScreen(navigation: any) {
     )
 }
 
-function DetailsScreen(navigation: any) {
+function DetailsScreen({ navigation }: Props) {
     return (
         <View
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
