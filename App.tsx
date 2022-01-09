@@ -3,21 +3,12 @@ import { View, Text, TextInput, Button } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
+import LogIn from './src/LogInScreen/LogIn'
+
 type Props = { navigation: any }
 
 function HomeScreen({ navigation }: Props) {
-    return (
-        <View
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-        >
-            <TextInput placeholder='email' />
-            <TextInput placeholder='password' />
-            <Button
-                title='로그인'
-                onPress={() => navigation.navigate('Details')}
-            />
-        </View>
-    )
+    return <LogIn onPress={() => navigation.navigate('Details')} />
 }
 
 function DetailsScreen({ navigation }: Props) {
