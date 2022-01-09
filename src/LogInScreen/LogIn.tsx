@@ -11,12 +11,7 @@ export default function LogIn({ onPress }: LogInProps) {
         >
             <TextInput placeholder='email' />
             <TextInput placeholder='password' />
-            <Button
-                title='로그인'
-                onPress={() => {
-                    onPress
-                }}
-            />
+            <Button title='로그인' onPress={onPress} />
         </View>
     )
 }
