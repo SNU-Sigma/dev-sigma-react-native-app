@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { View, Text, TextInput, Button } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LogIn from './src/LogInScreen/LogIn'
@@ -20,9 +19,13 @@ function App() {
                 <Stack.Screen
                     name='LogIn'
                     component={LogInScreen}
-                    options={{ title: 'Overview' }}
+                    options={{ title: 'Overview', headerShown: false }}
                 />
-                <Stack.Screen name='Home' component={Home} />
+                <Stack.Screen
+                    name='Home'
+                    component={Home}
+                    options={{ headerShown: false }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     )

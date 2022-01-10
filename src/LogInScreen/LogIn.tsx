@@ -1,6 +1,7 @@
-import { View, TextInput, Button } from 'react-native'
+import { View, Button } from 'react-native'
 import LogInText from './LogInText'
 import LogInInput from './LogInInput'
+import LogInButton from './LogInButton'
 
 type LogInProps = {
     onPress: () => void
@@ -13,9 +14,9 @@ export default function LogIn({ onPress }: LogInProps) {
         >
             <LogInText type={'Title'} text={'SIGMA'} />
             <LogInText type={'SubTitle'} text={'welcome'} />
-            <LogInInput input={'email'} />
-            <LogInInput input={'password'} />
-            <Button title='로그인' onPress={onPress} />
+            <LogInInput type={'email'} />
+            <LogInInput type={'password'} />
+            <LogInButton onPress={onPress} />
             <LogInText
                 type={'FindAccount'}
                 onPress={() => console.log('아이디/비밀번호 찾기')}

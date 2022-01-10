@@ -2,15 +2,28 @@ import { TextInput } from 'react-native'
 import styled from '@emotion/native'
 
 type InputProps = {
-    input: string
+    type: string
 }
 
-export default function LogInInput({ input }: InputProps) {
-    switch (input) {
+export default function LogInInput({ type }: InputProps) {
+    switch (type) {
         case 'email':
-            return <EmailInput placeholder='email' />
+            return (
+                <EmailInput
+                    placeholder='email'
+                    textAlign='center'
+                    placeholderTextColor={'black'}
+                />
+            )
         case 'password':
-            return <PasswordInput placeholder='password' />
+            return (
+                <PasswordInput
+                    placeholder='password'
+                    secureTextEntry={true}
+                    textAlign='center'
+                    placeholderTextColor={'black'}
+                />
+            )
         default:
             return <TextInput />
     }
@@ -20,21 +33,21 @@ const EmailInput = styled.TextInput`
     position: absolute;
     width: 268;
     height: 56;
-    left: 53;
+    justifycontent: center;
     top: 312;
 
     background: #c4c4c4;
     opacity: 0.26;
-    border-radius: 86;
+    border-radius: 20px;
 `
 
 const PasswordInput = styled.TextInput`
     position: absolute;
     width: 268;
     height: 56;
-    left: 53;
+    justifycontent: center;
     top: 385;
 
     background: #c4c4c4;
-    border-radius: 86;
+    border-radius: 20px;
 `

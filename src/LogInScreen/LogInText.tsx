@@ -24,28 +24,24 @@ export default function LogInText({ type, text, onPress }: TextProps) {
 
 const TitleText = styled.Text`
     position: absolute;
-    width: 118;
-    height: 68;
-    left: 136;
-    top: 207;
+    top: 207px;
+    justifycontent: center;
 
-    font-family: 'Ramabhadra';
+    font-family: Ramabhadra;
     font-style: normal;
     font-weight: normal;
-    font-size: 36;
-    line-height: 68;
+    font-size: 36px;
+    line-height: 68px;
 
     color: #000000;
 `
 // style은 항상 대문자로 시작해야 한대요...
 const SubTitleText = styled.Text`
     position: absolute;
-    width: 60;
-    height: 27;
-    left: 157;
+    justifycontent: center;
     top: 268;
 
-    font-family: 'Ramabhadra';
+    font-family: Ramabhadra;
     font-style: normal;
     font-weight: normal;
     font-size: 14;
@@ -56,9 +52,7 @@ const SubTitleText = styled.Text`
 
 const FindAccount = styled.Text`
     position: absolute;
-    width: 126;
-    height: 25;
-    left: 131;
+    justifycontent: center;
     top: 452;
 
     font-family: Ramabhadra;
@@ -72,9 +66,7 @@ const FindAccount = styled.Text`
 
 const ClubDescription = styled.Text`
     position: absolute;
-    width: 64;
-    height: 25;
-    left: 170;
+    justifycontent: center;
     top: 588;
 
     font-family: Ramabhadra;
