@@ -15,6 +15,8 @@ export default function LogInText({ type, text, onPress }: TextProps) {
             return <SubTitleText>{text}</SubTitleText>
         case 'FindAccount':
             return <FindAccount onPress={onPress}>{text}</FindAccount>
+        case 'ClubDescription':
+            return <ClubDescription onPress={onPress}>{text}</ClubDescription>
         default:
             return <Text>{text}</Text>
     }
@@ -58,6 +60,22 @@ const FindAccount = styled.Text`
     height: 25;
     left: 131;
     top: 452;
+
+    font-family: Ramabhadra;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13;
+    line-height: 25;
+
+    color: #000000;
+`
+
+const ClubDescription = styled.Text`
+    position: absolute;
+    width: 64;
+    height: 25;
+    left: 170;
+    top: 588;
 
     font-family: Ramabhadra;
     font-style: normal;
