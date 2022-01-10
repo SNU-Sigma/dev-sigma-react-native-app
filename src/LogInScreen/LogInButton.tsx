@@ -1,3 +1,4 @@
+import { Button } from 'react-native'
 import styled, { css } from '@emotion/native'
 
 type ButtonProps = {
@@ -17,6 +18,8 @@ const LogInButtonContainer = styled.TouchableOpacity`
     width: 268;
     height: 41;
     top: 500;
+    alignitems: center;
+    justifycontent: center;
 
     background: #000000;
     border-radius: 20px;
@@ -24,8 +27,6 @@ const LogInButtonContainer = styled.TouchableOpacity`
 
 const LogInButtonText = styled.Text`
     position: absolute;
-    left: 165;
-    top: 507;
 
     color: white;
 
