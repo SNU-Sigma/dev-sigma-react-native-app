@@ -33,7 +33,7 @@ const EmailInput = styled.TextInput`
     position: absolute;
     width: 268;
     height: 56;
-    justifycontent: center;
+
     top: 312;
 
     background: #c4c4c4;
@@ -45,7 +45,7 @@ const PasswordInput = styled.TextInput`
     position: absolute;
     width: 268;
     height: 56;
-    justifycontent: center;
+
     top: 385;
 
     background: #c4c4c4;

@@ -27,11 +27,11 @@ const LogInButtonText = styled.Text`
     left: 165;
     top: 507;
 
-    color: red;
+    color: white;
 
     font-family: Ramabhadra;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
-    line-height: 27px;
+    font-size: 14;
+    line-height: 27;
 `
