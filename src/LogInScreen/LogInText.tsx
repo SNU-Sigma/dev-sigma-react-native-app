@@ -4,15 +4,17 @@ import styled from '@emotion/native'
 type TextProps = {
     type: string
     text: string
+    onPress?: () => void
 }
 
-export default function LogInText({ type, text }: TextProps) {
+export default function LogInText({ type, text, onPress }: TextProps) {
     switch (type) {
         case 'Title':
             return <TitleText>{text}</TitleText>
         case 'SubTitle':
             return <SubTitleText>{text}</SubTitleText>
-
+        case 'FindAccount':
+            return <FindAccount onPress={onPress}>{text}</FindAccount>
         default:
             return <Text>{text}</Text>
     }
@@ -46,6 +48,22 @@ const SubTitleText = styled.Text`
     font-weight: normal;
     font-size: 14;
     line-height: 27;
+
+    color: #000000;
+`
+
+const FindAccount = styled.Text`
+    position: absolute;
+    width: 126;
+    height: 25;
+    left: 131;
+    top: 452;
+
+    font-family: Ramabhadra;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13;
+    line-height: 25;
 
     color: #000000;
 `
