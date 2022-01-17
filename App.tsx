@@ -2,12 +2,12 @@ import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LogIn from './src/LogInScreen/LogIn'
-import Home from './src/HomeScreen/Home'
+import Main from './src/MainScreen/Main'
 
 type Props = { navigation: any }
 
 function LogInScreen({ navigation }: Props) {
-    return <LogIn onPress={() => navigation.navigate('Home')} />
+    return <LogIn onPress={() => navigation.navigate('Main')} />
 }
 
 const Stack = createNativeStackNavigator()
@@ -22,8 +22,8 @@ function App() {
                     options={{ title: 'Overview', headerShown: false }}
                 />
                 <Stack.Screen
-                    name='Home'
-                    component={Home}
+                    name='Main'
+                    component={Main}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>
