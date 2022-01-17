@@ -60,8 +60,7 @@ export const EmailInput = styled.TextInput({
 
     top: 312,
 
-    backgroundColor: '#c4c4c4',
-    opacity: 0.26,
+    backgroundColor: 'rgba(196, 196, 196, 0.26)',
     borderRadius: 20,
 })
 
