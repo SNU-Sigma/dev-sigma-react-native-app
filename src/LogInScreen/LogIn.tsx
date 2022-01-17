@@ -1,7 +1,14 @@
-import { View, Button } from 'react-native'
-import LogInText from './LogInText'
-import LogInInput from './LogInInput'
-import LogInButton from './LogInButton'
+import { View } from 'react-native'
+import {
+    TitleText,
+    SubTitleText,
+    EmailInput,
+    PasswordInput,
+    LogInButtonContainer,
+    LogInButtonText,
+    FindAccount,
+    ClubDescription,
+} from './LogInStyles'
 
 type LogInProps = {
     onPress: () => void
@@ -12,21 +19,28 @@ export default function LogIn({ onPress }: LogInProps) {
         <View
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
-            <LogInText type={'Title'} text={'SIGMA'} />
-            <LogInText type={'SubTitle'} text={'welcome'} />
-            <LogInInput type={'email'} />
-            <LogInInput type={'password'} />
-            <LogInButton onPress={onPress} />
-            <LogInText
-                type={'FindAccount'}
-                onPress={() => console.log('아이디/비밀번호 찾기')}
-                text={'아이디/비밀번호 찾기 >'}
+            <TitleText>{'SIGMA'}</TitleText>
+            <SubTitleText>{'welcome'}</SubTitleText>
+            <EmailInput
+                placeholder='email'
+                textAlign='center'
+                placeholderTextColor={'black'}
             />
-            <LogInText
-                type={'ClubDescription'}
-                onPress={() => console.log('동아리소개')}
-                text={'동아리 소개'}
+            <PasswordInput
+                placeholder='password'
+                secureTextEntry={true}
+                textAlign='center'
+                placeholderTextColor={'black'}
             />
+            <LogInButtonContainer onPress={onPress}>
+                <LogInButtonText>{'LOGIN'}</LogInButtonText>
+            </LogInButtonContainer>
+            <FindAccount onPress={() => console.log('아이디/비밀번호 찾기')}>
+                {'아이디/비밀번호 찾기 >'}
+            </FindAccount>
+            <ClubDescription onPress={() => console.log('동아리소개')}>
+                {'동아리 소개'}
+            </ClubDescription>
         </View>
     )
 }
