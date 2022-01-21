@@ -22,7 +22,7 @@ export default function LogIn({ onPress }: LogInProps) {
             <TitleText>{'SIGMA'}</TitleText>
             <SubTitleText>{'welcome'}</SubTitleText>
             <EmailInput
-                placeholder='email'
+                placeholder='snumail'
                 textAlign='center'
                 placeholderTextColor={'black'}
             />
@@ -36,11 +36,8 @@ export default function LogIn({ onPress }: LogInProps) {
                 <LogInButtonText>{'LOGIN'}</LogInButtonText>
             </LogInButtonContainer>
             <FindAccount onPress={() => console.log('아이디/비밀번호 찾기')}>
-                {'아이디/비밀번호 찾기 >'}
+                {'아이디/비밀번호 찾기'}
             </FindAccount>
-            <ClubDescription onPress={() => console.log('동아리소개')}>
-                {'동아리 소개'}
-            </ClubDescription>
         </View>
     )
 }
