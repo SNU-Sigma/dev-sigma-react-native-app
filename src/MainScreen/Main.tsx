@@ -1,4 +1,3 @@
-import { ColorPropType, Image } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Post from './Post'

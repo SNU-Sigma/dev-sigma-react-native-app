@@ -7,7 +7,6 @@ import {
     LogInButtonContainer,
     LogInButtonText,
     FindAccount,
-    ClubDescription,
 } from './LogInStyles'
 
 type LogInProps = {
@@ -36,7 +35,7 @@ export default function LogIn({ onPress }: LogInProps) {
                 <LogInButtonText>{'LOGIN'}</LogInButtonText>
             </LogInButtonContainer>
             <FindAccount onPress={() => console.log('아이디/비밀번호 찾기')}>
-                {'아이디/비밀번호 찾기'}
+                {'아이디 | 비밀번호 찾기'}
             </FindAccount>
         </View>
     )
