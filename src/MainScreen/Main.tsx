@@ -11,7 +11,11 @@ export default function MainScreen() {
     return (
         <Tab.Navigator
             initialRouteName='Post'
-            screenOptions={{ tabBarActiveTintColor: 'black' }}
+            screenOptions={{
+                tabBarActiveTintColor: 'black',
+                tabBarShowLabel: false,
+                tabBarStyle: { height: 76 },
+            }}
         >
             <Tab.Screen
                 name='Post'
@@ -66,7 +70,7 @@ export default function MainScreen() {
                         size: any
                     }) => (
                         <MaterialCommunityIcons
-                            name='face'
+                            name='account'
                             color={color}
                             size={size}
                         />
