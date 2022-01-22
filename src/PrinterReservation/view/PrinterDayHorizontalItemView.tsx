@@ -5,14 +5,16 @@ import Animated, {
     useAnimatedStyle,
 } from 'react-native-reanimated'
 import { format } from 'date-fns'
+import { Pressable } from 'react-native'
 
 type Props = {
     date: Date
     animationValue: SharedValue<number>
+    onPress: () => void
 }
 
 export default function PrinterDayHorizontalItemView(props: Props) {
-    const { date, animationValue } = props
+    const { date, animationValue, onPress } = props
 
     const viewAnimatedStyle = useAnimatedStyle(() => {
         const backgroundColor = interpolateColor(
@@ -46,7 +48,7 @@ export default function PrinterDayHorizontalItemView(props: Props) {
     }, [animationValue])
 
     return (
-        <Animated.View
+        <AnimatedPressable
             style={[
                 {
                     flex: 1,
@@ -59,6 +61,7 @@ export default function PrinterDayHorizontalItemView(props: Props) {
                 },
                 viewAnimatedStyle,
             ]}
+            onPress={onPress}
         >
             <Animated.Text style={textAnimatedStyle}>
                 {format(date, 'M/d')}
@@ -66,6 +69,8 @@ export default function PrinterDayHorizontalItemView(props: Props) {
             <Animated.Text style={textAnimatedStyle}>
                 {format(date, 'eee')}
             </Animated.Text>
-        </Animated.View>
+        </AnimatedPressable>
     )
 }
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)

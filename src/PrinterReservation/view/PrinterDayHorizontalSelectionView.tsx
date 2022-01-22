@@ -49,21 +49,34 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
 
     const renderItem: CarouselRenderItem<Date> = useCallback((itemInfo) => {
         const { item, animationValue } = itemInfo
+
+        const handlePress = () => {
+            carouselRef.current?.scrollTo({
+                count: animationValue.value,
+                animated: true,
+            })
+        }
+
         return (
             <PrinterDayHorizontalItemView
                 date={item}
                 animationValue={animationValue}
+                onPress={handlePress}
             />
         )
     }, [])
 
     useEffect(() => {
         const index = differenceInCalendarDays(selectedDate, startDateTimeStamp)
-        if (carouselRef.current?.getCurrentIndex() === index) {
+        const currentIndex = carouselRef.current?.getCurrentIndex()
+        if (currentIndex === index || currentIndex === undefined) {
             return
         }
         if (isWithinInterval(selectedDate, interval)) {
-            carouselRef.current?.goToIndex(index, true)
+            carouselRef.current?.scrollTo({
+                count: index - currentIndex,
+                animated: true,
+            })
         }
     }, [interval, selectedDate, startDateTimeStamp])
 

@@ -5865,10 +5865,10 @@ react-native-ratings@8.0.4:
   dependencies:
     lodash "^4.17.15"
 
-react-native-reanimated-carousel@2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/react-native-reanimated-carousel/-/react-native-reanimated-carousel-2.1.2.tgz#3d6b22f9bb3d960d058c83e6adbc749f9611ef2a"
-  integrity sha512-v7n9t2wMtNOLU1hfejd+gPhS0qHtZEUjebovC1Tfks5vfaXB6BKJtsiTnGcdqemn8kXCdqhO6YtGheeNi5Jz0Q==
+react-native-reanimated-carousel@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated-carousel/-/react-native-reanimated-carousel-2.2.1.tgz#15a1fe52913c478e0ea39040ef026a7274f0e8b3"
+  integrity sha512-G53sH6lipj3RhkjUivnKDkcVH0xZV4nCE7TDF3tvwXWwcQYybcFIZF8q+M8cxDXdbGpndkcPUu3CFPPoejgy9w==
 
 react-native-reanimated@~2.3.1:
   version "2.3.1"
