@@ -1,8 +1,19 @@
-import { useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Dimensions, View } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel'
-import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
-import { addDays, eachDayOfInterval, format } from 'date-fns'
+import {
+    CarouselRenderItem,
+    ICarouselInstance,
+} from 'react-native-reanimated-carousel/lib/typescript/types'
+import {
+    addDays,
+    addMonths,
+    differenceInCalendarDays,
+    eachDayOfInterval,
+    format,
+    isWithinInterval,
+    startOfDay,
+} from 'date-fns'
 import Animated, {
     interpolate,
     interpolateColor,
@@ -77,16 +88,42 @@ const RenderItem: CarouselRenderItem<Date> = (itemInfo) => {
 export const PrinterDayHorizontalSelectionView = (props: Props) => {
     const { selectedDate, onSelectedDateChange } = props
 
+    const carouselRef = useRef<ICarouselInstance>(null)
+
+    const startDate = startOfDay(Date.now())
+
+    const interval: Interval = useMemo(
+        () => ({
+            start: startDate,
+            end: addMonths(startDate, 1),
+        }),
+        [startDate],
+    )
+
     const data: Array<Date> = useMemo(() => {
-        return eachDayOfInterval({
-            start: selectedDate,
-            end: addDays(selectedDate, 30),
-        })
-    }, [selectedDate])
+        return eachDayOfInterval(interval)
+    }, [interval])
+
+    const handleSnapToItem = useCallback(
+        (index: number) => {
+            onSelectedDateChange(addDays(startDate, index))
+        },
+        [onSelectedDateChange, startDate],
+    )
+
+    useEffect(() => {
+        if (isWithinInterval(selectedDate, interval)) {
+            carouselRef.current?.goToIndex(
+                differenceInCalendarDays(selectedDate, startDate),
+                true,
+            )
+        }
+    }, [interval, selectedDate, startDate])
 
     return (
         <View>
             <Carousel
+                ref={carouselRef}
                 data={data}
                 renderItem={RenderItem}
                 style={{
@@ -97,6 +134,7 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
                 windowSize={5} // 퍼포먼스 증가 위한 prop - 한 번에 5개만 렌더
                 width={120}
                 loop={false}
+                onSnapToItem={handleSnapToItem}
             />
         </View>
     )
