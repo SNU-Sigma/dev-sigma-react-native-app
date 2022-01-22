@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LogIn from './src/LogInScreen/LogIn'
@@ -15,17 +16,18 @@ const Stack = createNativeStackNavigator()
 
 function App() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShadowVisible: false }}>
-                <Stack.Screen
-                    name='LogIn'
-                    component={LogInScreen}
-                    options={{ title: 'Overview', headerShown: false }}
-                />
-                <Stack.Screen
-                    name='Main'
-                    component={Main}
-                    options={{ headerShown: false }}
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <NavigationContainer>
+                <Stack.Navigator screenOptions={{ headerShadowVisible: false }}>
+                    <Stack.Screen
+                        name='LogIn'
+                        component={LogInScreen}
+                        options={{ title: 'Overview', headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Main'
+                        component={Main}
+                        options={{ headerShown: false }}
                 />
                 <Stack.Screen
                     name='PostDetail'
@@ -35,9 +37,10 @@ function App() {
                         title: '게시물', //item.author 를 가져올 수 있으면 좋겠네요.. ㅎㅎ
                         headerTitleAlign: 'center',
                     }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </GestureHandlerRootView>
     )
 }
 
