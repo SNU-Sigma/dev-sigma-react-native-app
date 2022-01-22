@@ -11,6 +11,7 @@ import {
     differenceInCalendarDays,
     eachDayOfInterval,
     format,
+    getTime,
     isWithinInterval,
     startOfDay,
 } from 'date-fns'
@@ -90,14 +91,14 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
 
     const carouselRef = useRef<ICarouselInstance>(null)
 
-    const startDate = startOfDay(Date.now())
+    const startDateTimeStamp = getTime(startOfDay(Date.now()))
 
     const interval: Interval = useMemo(
         () => ({
-            start: startDate,
-            end: addMonths(startDate, 1),
+            start: startDateTimeStamp,
+            end: addMonths(startDateTimeStamp, 1),
         }),
-        [startDate],
+        [startDateTimeStamp],
     )
 
     const data: Array<Date> = useMemo(() => {
@@ -106,19 +107,19 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
 
     const handleSnapToItem = useCallback(
         (index: number) => {
-            onSelectedDateChange(addDays(startDate, index))
+            onSelectedDateChange(addDays(startDateTimeStamp, index))
         },
-        [onSelectedDateChange, startDate],
+        [onSelectedDateChange, startDateTimeStamp],
     )
 
     useEffect(() => {
         if (isWithinInterval(selectedDate, interval)) {
             carouselRef.current?.goToIndex(
-                differenceInCalendarDays(selectedDate, startDate),
+                differenceInCalendarDays(selectedDate, startDateTimeStamp),
                 true,
             )
         }
-    }, [interval, selectedDate, startDate])
+    }, [interval, selectedDate, startDateTimeStamp])
 
     return (
         <View>
