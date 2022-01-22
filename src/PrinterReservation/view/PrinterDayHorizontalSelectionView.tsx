@@ -113,16 +113,17 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
     )
 
     useEffect(() => {
+        const index = differenceInCalendarDays(selectedDate, startDateTimeStamp)
+        if (carouselRef.current?.getCurrentIndex() === index) {
+            return
+        }
         if (isWithinInterval(selectedDate, interval)) {
-            carouselRef.current?.goToIndex(
-                differenceInCalendarDays(selectedDate, startDateTimeStamp),
-                true,
-            )
+            carouselRef.current?.goToIndex(index, true)
         }
     }, [interval, selectedDate, startDateTimeStamp])
 
-    return (
-        <View>
+    const carousel = useMemo(
+        () => (
             <Carousel
                 ref={carouselRef}
                 data={data}
@@ -137,6 +138,9 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
                 loop={false}
                 onSnapToItem={handleSnapToItem}
             />
-        </View>
+        ),
+        [data, handleSnapToItem],
     )
+
+    return <View>{carousel}</View>
 }
