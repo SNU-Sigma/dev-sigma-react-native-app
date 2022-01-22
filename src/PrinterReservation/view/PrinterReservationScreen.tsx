@@ -1,28 +1,36 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import styled from '@emotion/native'
 import { PrinterDayHorizontalSelectionView } from './PrinterDayHorizontalSelectionView'
 import { PrinterTimeVerticalSelectionView } from './PrinterTimeVerticalSelectionView'
-import { startOfDay } from 'date-fns'
+import { addDays, differenceInCalendarDays, startOfDay } from 'date-fns'
 import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export const PrinterReservationScreen = () => {
-    const [selectedDate, setSelectedDate] = useState(startOfDay(Date.now()))
+    const [selectedDate, setSelectedDate] = useState(new Date())
 
-    const handleSelectedDateChange = (date: Date) => {
-        setSelectedDate(date)
-    }
+    const selectedDateUntilDay = startOfDay(selectedDate)
+
+    const handleSelectedDateChange = useCallback((date: Date) => {
+        setSelectedDate((prevDate) => {
+            return addDays(prevDate, differenceInCalendarDays(date, prevDate))
+        })
+    }, [])
 
     return (
         <Container>
             <View style={{ flex: 1 }}>
                 <PrinterDayHorizontalSelectionView
-                    selectedDate={selectedDate}
+                    selectedDate={selectedDateUntilDay}
                     onSelectedDateChange={handleSelectedDateChange}
                 />
             </View>
-            <View style={{ flex: 2 }}>
-                <PrinterTimeVerticalSelectionView />
+            <View style={{ flex: 2, backgroundColor: 'white', width: '100%' }}>
+                <PrinterTimeVerticalSelectionView
+                    selectedDateTime={selectedDate}
+                    onSelectedDateTimeChange={setSelectedDate}
+                    reservations={[]}
+                />
             </View>
         </Container>
     )
