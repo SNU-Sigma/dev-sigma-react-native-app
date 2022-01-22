@@ -10,80 +10,15 @@ import {
     addMonths,
     differenceInCalendarDays,
     eachDayOfInterval,
-    format,
     getTime,
     isWithinInterval,
     startOfDay,
 } from 'date-fns'
-import Animated, {
-    interpolate,
-    interpolateColor,
-    useAnimatedStyle,
-} from 'react-native-reanimated'
+import PrinterDayHorizontalItemView from './PrinterDayHorizontalItemView'
 
 type Props = {
     selectedDate: Date
     onSelectedDateChange: (date: Date) => void
-}
-
-const RenderItem: CarouselRenderItem<Date> = (itemInfo) => {
-    const date = itemInfo.item
-    const { animationValue } = itemInfo
-
-    const viewAnimatedStyle = useAnimatedStyle(() => {
-        const backgroundColor = interpolateColor(
-            animationValue.value,
-            [-1, 0, 1],
-            ['white', 'blue', 'white'],
-        )
-
-        return {
-            backgroundColor,
-        }
-    }, [animationValue])
-
-    const textAnimatedStyle = useAnimatedStyle(() => {
-        const color = interpolateColor(
-            animationValue.value,
-            [-1, 0, 1],
-            ['black', 'white', 'black'],
-        )
-
-        const fontSize = interpolate(
-            animationValue.value,
-            [-1, 0, 1],
-            [12, 16, 12],
-        )
-
-        return {
-            color,
-            fontSize,
-        }
-    }, [animationValue])
-
-    return (
-        <Animated.View
-            style={[
-                {
-                    flex: 1,
-                    marginVertical: 16,
-                    marginHorizontal: 16,
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 8,
-                },
-                viewAnimatedStyle,
-            ]}
-        >
-            <Animated.Text style={textAnimatedStyle}>
-                {format(date, 'M/d')}
-            </Animated.Text>
-            <Animated.Text style={textAnimatedStyle}>
-                {format(date, 'eee')}
-            </Animated.Text>
-        </Animated.View>
-    )
 }
 
 export const PrinterDayHorizontalSelectionView = (props: Props) => {
@@ -112,6 +47,16 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
         [onSelectedDateChange, startDateTimeStamp],
     )
 
+    const renderItem: CarouselRenderItem<Date> = useCallback((itemInfo) => {
+        const { item, animationValue } = itemInfo
+        return (
+            <PrinterDayHorizontalItemView
+                date={item}
+                animationValue={animationValue}
+            />
+        )
+    }, [])
+
     useEffect(() => {
         const index = differenceInCalendarDays(selectedDate, startDateTimeStamp)
         if (carouselRef.current?.getCurrentIndex() === index) {
@@ -127,7 +72,7 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
             <Carousel
                 ref={carouselRef}
                 data={data}
-                renderItem={RenderItem}
+                renderItem={renderItem}
                 style={{
                     width: Dimensions.get('window').width,
                     justifyContent: 'center',
@@ -139,7 +84,7 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
                 onSnapToItem={handleSnapToItem}
             />
         ),
-        [data, handleSnapToItem],
+        [data, handleSnapToItem, renderItem],
     )
 
     return <View>{carousel}</View>
