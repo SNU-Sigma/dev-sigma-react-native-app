@@ -2,7 +2,7 @@ import styled from '@emotion/native'
 import { PrinterDayHorizontalSelectionView } from './PrinterDayHorizontalSelectionView'
 import { PrinterTimeVerticalSelectionView } from './PrinterTimeVerticalSelectionView'
 
-export const PrinterCalendarScreen = () => {
+export const PrinterReservationScreen = () => {
     return (
         <Container>
             <PrinterDayHorizontalSelectionView />
