@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import {
+    addDays,
     addHours,
     addMonths,
     differenceInHours,
@@ -18,7 +19,6 @@ import {
     getTime,
     isBefore,
     isSameDay,
-    isSameHour,
     parseISO,
     startOfDay,
 } from 'date-fns'
@@ -102,31 +102,39 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                     onViewableItemsChanged: ({ changed, viewableItems }) => {
                         currentlyViewableItemsRef.current = viewableItems
 
-                        const recentlyHiddenDateViewToken = changed.find(
+                        const recentlyChangedEndOfDayViewToken = changed.find(
                             (viewToken): boolean => {
-                                const { isViewable, key } = viewToken
-                                if (isViewable) {
-                                    return false
-                                }
+                                const { key, isViewable } = viewToken
                                 const date = parseISO(key)
                                 if (isSameDay(date, addHours(date, 1))) {
-                                    // 23시인지 아닌지 검사
+                                    // 1시간을 더했을 때 같은 날이면 23시 아님
                                     return false
                                 }
-                                const isAboveViewableItems =
-                                    viewableItems.every((item) => {
+                                const isChangingFromAbove = changed
+                                    .filter(
+                                        (viewToken) =>
+                                            viewToken.isViewable !== isViewable,
+                                    )
+                                    .every((item) => {
                                         return isBefore(
                                             parseISO(key),
                                             parseISO(item.key),
                                         )
                                     })
-                                return isAboveViewableItems
+                                return isChangingFromAbove
                             },
                         )
-                        if (recentlyHiddenDateViewToken !== undefined) {
-                            const { key } = recentlyHiddenDateViewToken
+                        if (recentlyChangedEndOfDayViewToken !== undefined) {
+                            const { key, isViewable } =
+                                recentlyChangedEndOfDayViewToken
                             const date = parseISO(key)
-                            onSelectedDateTimeChange(addHours(date, 1))
+                            if (isViewable) {
+                                onSelectedDateTimeChange(startOfDay(date))
+                            } else {
+                                onSelectedDateTimeChange(
+                                    addDays(startOfDay(date), 1),
+                                )
+                            }
                         }
                     },
                 },
@@ -144,11 +152,12 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
     )
 
     useEffect(() => {
-        const isSelectedDateTimeViewable =
-            currentlyViewableItemsRef.current.some((item) => {
-                return isSameHour(parseISO(item.key), selectedDateTime)
-            })
-        if (isSelectedDateTimeViewable) {
+        const isSelectedDayViewable = currentlyViewableItemsRef.current.some(
+            (item) => {
+                return isSameDay(parseISO(item.key), selectedDateTime)
+            },
+        )
+        if (isSelectedDayViewable) {
             return
         }
 
