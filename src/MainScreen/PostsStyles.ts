@@ -54,6 +54,7 @@ export const ContentText = styled.Text({
     marginTop: 10,
     fontSize: 12,
     lineHeight: 19,
+    textAlign: 'justify',
 })
 
 export const MoreText = styled.Text({
