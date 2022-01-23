@@ -15,6 +15,7 @@ import {
     startOfDay,
 } from 'date-fns'
 import PrinterDayHorizontalItemView from './PrinterDayHorizontalItemView'
+import { debounce } from 'lodash'
 
 type Props = {
     selectedDate: Date
@@ -23,6 +24,11 @@ type Props = {
 
 export const PrinterDayHorizontalSelectionView = (props: Props) => {
     const { selectedDate, onSelectedDateChange } = props
+
+    const handleSelectedChange = useMemo(
+        () => debounce(onSelectedDateChange, 500),
+        [onSelectedDateChange],
+    )
 
     const carouselRef = useRef<ICarouselInstance>(null)
 
@@ -42,9 +48,9 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
 
     const handleSnapToItem = useCallback(
         (index: number) => {
-            onSelectedDateChange(addDays(startDateTimeStamp, index))
+            handleSelectedChange(addDays(startDateTimeStamp, index))
         },
-        [onSelectedDateChange, startDateTimeStamp],
+        [handleSelectedChange, startDateTimeStamp],
     )
 
     const renderItem: CarouselRenderItem<Date> = useCallback((itemInfo) => {

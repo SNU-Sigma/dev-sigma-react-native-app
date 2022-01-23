@@ -23,6 +23,7 @@ import {
     startOfDay,
 } from 'date-fns'
 import { formatISO } from 'date-fns/fp'
+import { debounce } from 'lodash'
 
 type Props = {
     selectedDateTime: Date
@@ -34,6 +35,11 @@ const ITEM_HEIGHT = 72
 
 export const PrinterTimeVerticalSelectionView = (props: Props) => {
     const { selectedDateTime, onSelectedDateTimeChange } = props
+
+    const handleSelectedDateTimeChange = useMemo(
+        () => debounce(onSelectedDateTimeChange, 1000),
+        [onSelectedDateTimeChange],
+    )
 
     const currentlyViewableItemsRef = useRef<Array<ViewToken>>([])
 
@@ -129,9 +135,9 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                                 recentlyChangedEndOfDayViewToken
                             const date = parseISO(key)
                             if (isViewable) {
-                                onSelectedDateTimeChange(startOfDay(date))
+                                handleSelectedDateTimeChange(startOfDay(date))
                             } else {
-                                onSelectedDateTimeChange(
+                                handleSelectedDateTimeChange(
                                     addDays(startOfDay(date), 1),
                                 )
                             }
@@ -139,7 +145,7 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                     },
                 },
             ],
-            [onSelectedDateTimeChange],
+            [handleSelectedDateTimeChange],
         )
 
     const getItemLayout = useCallback(
