@@ -9,7 +9,6 @@ import {
 } from 'react-native'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import {
-    addDays,
     addHours,
     addMonths,
     differenceInHours,
@@ -35,11 +34,6 @@ const ITEM_HEIGHT = 72
 
 export const PrinterTimeVerticalSelectionView = (props: Props) => {
     const { selectedDateTime, onSelectedDateTimeChange } = props
-
-    const handleSelectedDateTimeChange = useMemo(
-        () => debounce(onSelectedDateTimeChange, 1000),
-        [onSelectedDateTimeChange],
-    )
 
     const currentlyViewableItemsRef = useRef<Array<ViewToken>>([])
 
@@ -105,17 +99,17 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                     viewabilityConfig: {
                         itemVisiblePercentThreshold: 0,
                     },
-                    onViewableItemsChanged: ({ changed, viewableItems }) => {
+                    onViewableItemsChanged: debounce<
+                        Exclude<
+                            ViewabilityConfigCallbackPair['onViewableItemsChanged'],
+                            null
+                        >
+                    >(({ changed, viewableItems }) => {
                         currentlyViewableItemsRef.current = viewableItems
 
                         const recentlyChangedEndOfDayViewToken = changed.find(
                             (viewToken): boolean => {
                                 const { key, isViewable } = viewToken
-                                const date = parseISO(key)
-                                if (isSameDay(date, addHours(date, 1))) {
-                                    // 1시간을 더했을 때 같은 날이면 23시 아님
-                                    return false
-                                }
                                 const isChangingFromAbove = changed
                                     .filter(
                                         (viewToken) =>
@@ -135,17 +129,15 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                                 recentlyChangedEndOfDayViewToken
                             const date = parseISO(key)
                             if (isViewable) {
-                                handleSelectedDateTimeChange(startOfDay(date))
+                                onSelectedDateTimeChange(date)
                             } else {
-                                handleSelectedDateTimeChange(
-                                    addDays(startOfDay(date), 1),
-                                )
+                                onSelectedDateTimeChange(addHours(date, 1))
                             }
                         }
-                    },
+                    }, 500),
                 },
             ],
-            [handleSelectedDateTimeChange],
+            [onSelectedDateTimeChange],
         )
 
     const getItemLayout = useCallback(
