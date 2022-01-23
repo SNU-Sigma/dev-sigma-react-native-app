@@ -5,15 +5,20 @@ import {
     Text,
     View,
     ViewabilityConfigCallbackPair,
+    ViewToken,
 } from 'react-native'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import {
     addHours,
     addMonths,
+    differenceInHours,
     eachHourOfInterval,
     endOfDay,
     format,
+    getTime,
+    isBefore,
     isSameDay,
+    isSameHour,
     parseISO,
     startOfDay,
 } from 'date-fns'
@@ -30,12 +35,18 @@ const ITEM_HEIGHT = 72
 export const PrinterTimeVerticalSelectionView = (props: Props) => {
     const { selectedDateTime, onSelectedDateTimeChange } = props
 
+    const currentlyViewableItemsRef = useRef<Array<ViewToken>>([])
+
+    const flatListRef = useRef<FlatList>(null)
+
+    const startDateTimeStamp = getTime(startOfDay(Date.now()))
+
     const data: Array<Date> = useMemo(() => {
         return eachHourOfInterval({
-            start: startOfDay(Date.now()),
-            end: endOfDay(addMonths(Date.now(), 1)),
+            start: startDateTimeStamp,
+            end: endOfDay(addMonths(startDateTimeStamp, 1)),
         })
-    }, [])
+    }, [startDateTimeStamp])
 
     const renderItem: ListRenderItem<Date> = useCallback(({ item }) => {
         return (
@@ -89,21 +100,27 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                         itemVisiblePercentThreshold: 0,
                     },
                     onViewableItemsChanged: ({ changed, viewableItems }) => {
+                        currentlyViewableItemsRef.current = viewableItems
+
                         const recentlyHiddenDateViewToken = changed.find(
-                            (viewToken) => {
+                            (viewToken): boolean => {
                                 const { isViewable, key } = viewToken
+                                if (isViewable) {
+                                    return false
+                                }
                                 const date = parseISO(key)
-                                const isDateOtherHoursViewable =
-                                    viewableItems.some((viewToken) => {
-                                        return isSameDay(
-                                            parseISO(viewToken.key),
-                                            date,
+                                if (isSameDay(date, addHours(date, 1))) {
+                                    // 23시인지 아닌지 검사
+                                    return false
+                                }
+                                const isAboveViewableItems =
+                                    viewableItems.every((item) => {
+                                        return isBefore(
+                                            parseISO(key),
+                                            parseISO(item.key),
                                         )
                                     })
-                                return (
-                                    isViewable === false &&
-                                    isDateOtherHoursViewable === false
-                                )
+                                return isAboveViewableItems
                             },
                         )
                         if (recentlyHiddenDateViewToken !== undefined) {
@@ -126,8 +143,26 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
         [],
     )
 
+    useEffect(() => {
+        const isSelectedDateTimeViewable =
+            currentlyViewableItemsRef.current.some((item) => {
+                return isSameHour(parseISO(item.key), selectedDateTime)
+            })
+        if (isSelectedDateTimeViewable) {
+            return
+        }
+
+        flatListRef.current?.scrollToIndex({
+            index: differenceInHours(selectedDateTime, startDateTimeStamp, {
+                roundingMethod: 'floor',
+            }),
+            animated: true,
+        })
+    }, [selectedDateTime, startDateTimeStamp])
+
     return (
         <FlatList
+            ref={flatListRef}
             data={data}
             renderItem={renderItem}
             getItemLayout={getItemLayout}
