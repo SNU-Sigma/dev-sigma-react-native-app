@@ -9,8 +9,8 @@ import {
     PostDetailScrollView,
     CommentView,
 } from './PostDetailStyles'
-import adminMark from '../assets/images/왕관 아이콘 묶음.png'
-import { Comment, Post } from '../MainScreen/Posts'
+import adminMark from '../assets/images/adminMark.png'
+import { Comment } from '../MainScreen/Posts'
 
 const src =
     'https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=620&quality=85&auto=format&fit=max&s=21718fb1379918410ea10054db89f665'

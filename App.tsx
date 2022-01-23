@@ -32,7 +32,7 @@ function App() {
                     component={PostDetail}
                     options={{
                         headerBackVisible: true,
-                        headerTitle: '게시물', //item.author 를 가져올 수 있으면 좋겠네요.. ㅎㅎ
+                        title: '게시물', //item.author 를 가져올 수 있으면 좋겠네요.. ㅎㅎ
                         headerTitleAlign: 'center',
                     }}
                 />

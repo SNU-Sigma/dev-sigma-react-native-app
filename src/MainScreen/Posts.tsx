@@ -10,7 +10,7 @@ import {
     TitleText,
 } from './PostsStyles'
 import picture from '../assets/images/picture.png'
-import adminMark from '../assets/images/왕관 아이콘 묶음.png'
+import adminMark from '../assets/images/adminMark.png'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 //import { SearchBar } from 'react-native-elements'

@@ -22,8 +22,8 @@ export const AdminImage = styled.Image({
     position: 'absolute',
     top: 10,
     left: 30,
-    width: 21,
-    height: 21,
+    width: 19,
+    height: 19,
 })
 
 export const CommentView = styled.View({

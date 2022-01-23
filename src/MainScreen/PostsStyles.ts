@@ -46,8 +46,8 @@ export const AdminImage = styled.Image({
     position: 'absolute',
     top: 5,
     left: 48,
-    width: 21,
-    height: 21,
+    width: 19,
+    height: 19,
 })
 
 export const ContentText = styled.Text({
