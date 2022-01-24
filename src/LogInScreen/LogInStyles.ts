@@ -45,7 +45,7 @@ export const ClubDescription = styled.Text({
 
     top: 588,
 
-    fontFamily: 'Ramabhadra',
+    //fontFamily: 'Ramabhadra',
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 13,
