@@ -19,13 +19,11 @@ export const PrinterReservationScreen = () => {
 
     return (
         <Container>
-            <View style={{ flex: 1 }}>
-                <PrinterDayHorizontalSelectionView
-                    selectedDate={selectedDateUntilDay}
-                    onSelectedDateChange={handleSelectedDateChange}
-                />
-            </View>
-            <View style={{ flex: 2, backgroundColor: 'white', width: '100%' }}>
+            <PrinterDayHorizontalSelectionView
+                selectedDate={selectedDateUntilDay}
+                onSelectedDateChange={handleSelectedDateChange}
+            />
+            <View style={{ flex: 1, backgroundColor: 'white', width: '100%' }}>
                 <PrinterTimeVerticalSelectionView
                     selectedDateTime={selectedDate}
                     onSelectedDateTimeChange={setSelectedDate}

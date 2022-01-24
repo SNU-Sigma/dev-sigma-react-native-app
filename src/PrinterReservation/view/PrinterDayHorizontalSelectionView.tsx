@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { Dimensions, View } from 'react-native'
+import { Dimensions } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel'
 import {
     CarouselRenderItem,
@@ -12,10 +12,13 @@ import {
     eachDayOfInterval,
     getTime,
     isWithinInterval,
+    lightFormat,
     startOfDay,
 } from 'date-fns'
 import PrinterDayHorizontalItemView from './PrinterDayHorizontalItemView'
 import { debounce } from 'lodash'
+import styled from '@emotion/native'
+import Spacer from '../../common/view/Spacer'
 
 type Props = {
     selectedDate: Date
@@ -26,7 +29,7 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
     const { selectedDate, onSelectedDateChange } = props
 
     const handleSelectedChange = useMemo(
-        () => debounce(onSelectedDateChange, 500),
+        () => debounce(onSelectedDateChange, 100),
         [onSelectedDateChange],
     )
 
@@ -45,6 +48,15 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
     const data: Array<Date> = useMemo(() => {
         return eachDayOfInterval(interval)
     }, [interval])
+
+    const generalDate = useMemo(
+        () =>
+            `${lightFormat(selectedDate, 'yyyy')}년 ${lightFormat(
+                selectedDate,
+                'MM',
+            )}월`,
+        [selectedDate],
+    )
 
     const handleSnapToItem = useCallback(
         (index: number) => {
@@ -93,12 +105,14 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
                 data={data}
                 renderItem={renderItem}
                 style={{
-                    width: Dimensions.get('window').width,
+                    width: Dimensions.get('window').width - 48,
                     justifyContent: 'center',
                     alignItems: 'center',
+                    alignSelf: 'center',
                 }}
-                windowSize={5} // 퍼포먼스 증가 위한 prop - 한 번에 5개만 렌더
-                width={120}
+                windowSize={7}
+                width={52}
+                height={72}
                 loop={false}
                 onSnapToItem={handleSnapToItem}
             />
@@ -106,5 +120,32 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
         [data, handleSnapToItem, renderItem],
     )
 
-    return <View>{carousel}</View>
+    return (
+        <Container>
+            <Spacer height={10} />
+            <Title>SIGMA 3D PRINTER</Title>
+            <GeneralDate>{generalDate}</GeneralDate>
+            <Spacer height={4} />
+            {carousel}
+        </Container>
+    )
 }
+
+const Container = styled.View({
+    height: 160,
+    width: '100%',
+    backgroundColor: '#C1C1C1',
+})
+
+const Title = styled.Text({
+    fontWeight: 'bold',
+    fontSize: 14,
+    lineHeight: 27,
+    marginLeft: 20,
+})
+
+const GeneralDate = styled.Text({
+    fontSize: 13,
+    lineHeight: 15,
+    marginLeft: 20,
+})

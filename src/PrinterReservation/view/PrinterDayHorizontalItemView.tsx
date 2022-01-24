@@ -52,12 +52,12 @@ export default function PrinterDayHorizontalItemView(props: Props) {
             style={[
                 {
                     flex: 1,
-                    marginVertical: 16,
-                    marginHorizontal: 16,
+                    marginVertical: 10,
+                    marginHorizontal: 8,
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderRadius: 8,
+                    borderRadius: 32,
                 },
                 viewAnimatedStyle,
             ]}
