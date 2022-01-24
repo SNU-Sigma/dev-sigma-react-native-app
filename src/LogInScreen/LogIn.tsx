@@ -8,6 +8,8 @@ import {
     LogInButtonText,
     FindAccount,
 } from './LogInStyles'
+import '../assets/fonts/SIGMA.png'
+import '../assets/fonts/Welcome.png'
 
 type LogInProps = {
     onPress: () => void
@@ -18,8 +20,8 @@ export default function LogIn({ onPress }: LogInProps) {
         <View
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
-            <TitleText>{'SIGMA'}</TitleText>
-            <SubTitleText>{'welcome'}</SubTitleText>
+            <TitleText source={require('../assets/fonts/SIGMA.png')} />
+            <SubTitleText source={require('../assets/fonts/welcome.png')} />
             <EmailInput placeholder='snumail' placeholderTextColor={'black'} />
             <PasswordInput
                 placeholder='password'
