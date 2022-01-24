@@ -20,15 +20,10 @@ export default function LogIn({ onPress }: LogInProps) {
         >
             <TitleText>{'SIGMA'}</TitleText>
             <SubTitleText>{'welcome'}</SubTitleText>
-            <EmailInput
-                placeholder='snumail'
-                textAlign='center'
-                placeholderTextColor={'black'}
-            />
+            <EmailInput placeholder='snumail' placeholderTextColor={'black'} />
             <PasswordInput
                 placeholder='password'
                 secureTextEntry={true}
-                textAlign='center'
                 placeholderTextColor={'black'}
             />
             <LogInButtonContainer onPress={onPress}>
