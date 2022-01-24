@@ -20,8 +20,8 @@ export default function LogIn({ onPress }: LogInProps) {
         <View
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
-            <TitleText source={require('../assets/fonts/SIGMA.png')} />
-            <SubTitleText source={require('../assets/fonts/welcome.png')} />
+            <TitleText>{'SIGMA'}</TitleText>
+            <SubTitleText>{'welcome'}</SubTitleText>
             <EmailInput placeholder='snumail' placeholderTextColor={'black'} />
             <PasswordInput
                 placeholder='password'

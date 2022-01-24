@@ -1,17 +1,28 @@
 import styled from '@emotion/native'
 
-export const TitleText = styled.Image({
+export const TitleText = styled.Text({
     position: 'absolute',
 
+    height: 68,
     top: 242,
+
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 36,
+    lineHeight: 68,
 
     color: '#000000',
 })
 
-export const SubTitleText = styled.Image({
+export const SubTitleText = styled.Text({
     position: 'absolute',
-
+    height: 27,
     top: 297,
+
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 14,
+    lineHeight: 27,
 
     color: '#000000',
 })
