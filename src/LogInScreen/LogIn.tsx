@@ -8,6 +8,8 @@ import {
     LogInButtonText,
     FindAccount,
 } from './LogInStyles'
+import '../assets/fonts/SIGMA.png'
+import '../assets/fonts/Welcome.png'
 
 type LogInProps = {
     onPress: () => void
@@ -20,15 +22,10 @@ export default function LogIn({ onPress }: LogInProps) {
         >
             <TitleText>{'SIGMA'}</TitleText>
             <SubTitleText>{'welcome'}</SubTitleText>
-            <EmailInput
-                placeholder='snumail'
-                textAlign='center'
-                placeholderTextColor={'black'}
-            />
+            <EmailInput placeholder='snumail' placeholderTextColor={'black'} />
             <PasswordInput
                 placeholder='password'
                 secureTextEntry={true}
-                textAlign='center'
                 placeholderTextColor={'black'}
             />
             <LogInButtonContainer onPress={onPress}>

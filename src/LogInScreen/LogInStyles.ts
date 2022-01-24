@@ -63,6 +63,7 @@ export const EmailInput = styled.TextInput({
 
     backgroundColor: 'rgba(193, 193, 193, 1)',
     borderRadius: 13,
+    paddingLeft: 21,
 })
 
 export const PasswordInput = styled.TextInput({
@@ -74,6 +75,7 @@ export const PasswordInput = styled.TextInput({
 
     backgroundColor: 'rgba(193,193,193,1)',
     borderRadius: 13,
+    paddingLeft: 21,
 })
 
 export const LogInButtonContainer = styled.TouchableOpacity({

@@ -1,5 +1,5 @@
+import { Image } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Post from './Post'
 import PrinterReservation from './PrinterReservation'
 import MyPage from './MyPage'
@@ -12,6 +12,7 @@ export default function MainScreen() {
             initialRouteName='Post'
             screenOptions={{
                 tabBarActiveTintColor: 'black',
+                tabBarInactiveTintColor: 'gray',
                 tabBarShowLabel: false,
                 tabBarStyle: { height: 76 },
             }}
@@ -21,6 +22,8 @@ export default function MainScreen() {
                 component={Post}
                 options={{
                     headerShown: false,
+                    tabBarActiveTintColor: 'black',
+                    tabBarInactiveTintColor: 'gray',
                     tabBarIcon: ({
                         color,
                         size,
@@ -28,10 +31,9 @@ export default function MainScreen() {
                         color: any
                         size: any
                     }) => (
-                        <MaterialCommunityIcons
-                            name='home'
-                            color={color}
-                            size={size}
+                        <Image
+                            source={require('../assets/image/Home.png')}
+                            style={{ tintColor: color }}
                         />
                     ),
                 }}
@@ -41,6 +43,8 @@ export default function MainScreen() {
                 component={PrinterReservation}
                 options={{
                     headerShown: false,
+                    tabBarActiveTintColor: 'black',
+                    tabBarInactiveTintColor: 'gray',
                     tabBarIcon: ({
                         color,
                         size,
@@ -48,10 +52,9 @@ export default function MainScreen() {
                         color: any
                         size: any
                     }) => (
-                        <MaterialCommunityIcons
-                            name='printer'
-                            color={color}
-                            size={size}
+                        <Image
+                            source={require('../assets/image/Calendar.png')}
+                            style={{ tintColor: color }}
                         />
                     ),
                 }}
@@ -61,6 +64,8 @@ export default function MainScreen() {
                 component={MyPage}
                 options={{
                     headerShown: false,
+                    tabBarActiveTintColor: 'black',
+                    tabBarInactiveTintColor: 'gray',
                     tabBarIcon: ({
                         color,
                         size,
@@ -68,10 +73,9 @@ export default function MainScreen() {
                         color: any
                         size: any
                     }) => (
-                        <MaterialCommunityIcons
-                            name='account'
-                            color={color}
-                            size={size}
+                        <Image
+                            source={require('../assets/image/Me.png')}
+                            style={{ tintColor: color }}
                         />
                     ),
                 }}
