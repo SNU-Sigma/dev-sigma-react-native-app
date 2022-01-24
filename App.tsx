@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LogIn from './src/LogInScreen/LogIn'
 import Main from './src/MainScreen/Main'
-import PostDetail from './src/PostDetail/PostDetail'
+import PostDetail from './src/PostDetailScreen/PostDetail'
 
 type Props = { navigation: any }
 

@@ -16,6 +16,7 @@ export const PostDetailScrollView = styled.ScrollView({
     shadowRadius: 9,
     shadowOffset: { width: 3, height: 4 },
     elevation: 10,
+    overflow: 'hidden',
 })
 
 export const AdminImage = styled.Image({

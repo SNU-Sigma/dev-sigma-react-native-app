@@ -81,6 +81,7 @@ export default function PostDetail({ route }: { route: any }) {
                         horizontal={true}
                         renderItem={renderPhotoItem}
                         // keyExtractor 를 어떻게 해야 할까요..?
+                        keyExtractor={(item: string) => item}
                         showsHorizontalScrollIndicator={false}
                     />
                 )}
@@ -92,12 +93,46 @@ export default function PostDetail({ route }: { route: any }) {
                                 borderBottomWidth: 1,
                             }}
                         />
-                        <FlatList
-                            data={item.comments}
-                            renderItem={renderCommentItem}
-                            keyExtractor={(item: Comment) => item.id}
-                            showsVerticalScrollIndicator={false}
-                        />
+                        {/*<FlatList*/}
+                        {/*    data={item.comments}*/}
+                        {/*    renderItem={renderCommentItem}*/}
+                        {/*    keyExtractor={(item: Comment) => item.id}*/}
+                        {/*    showsVerticalScrollIndicator={false}*/}
+                        {/*/>*/}
+                        {item.comments.map((comment: Comment) => (
+                            <CommentView key={comment.id}>
+                                <ProfileImage source={{ uri: src }} />
+                                <View style={{ flex: 1 }}>
+                                    {/* 2줄 이상의 comment 를 위한 flex: 1 */}
+                                    <Text
+                                        style={{
+                                            fontSize: 14,
+                                            paddingLeft: 12,
+                                        }}
+                                    >
+                                        {comment.authorName}
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontSize: 10,
+                                            paddingLeft: 12,
+                                        }}
+                                    >
+                                        {comment.content}
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontSize: 8,
+                                            paddingLeft: 12,
+                                            color: 'grey',
+                                        }}
+                                    >
+                                        {comment.date}
+                                    </Text>
+                                    {/*comment 에는 isAdmin 이 없다.. ㅠㅠ*/}
+                                </View>
+                            </CommentView>
+                        ))}
                     </View>
                 )}
             </PostDetailScrollView>
