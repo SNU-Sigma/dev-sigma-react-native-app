@@ -3,9 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Post from './Post'
 import PrinterReservation from './PrinterReservation'
 import MyPage from './MyPage'
-import '../assets/image/Home.png'
-import '../assets/image/Vector.png'
-import '../assets/image/Me.png'
 
 const Tab = createBottomTabNavigator()
 
@@ -56,7 +53,7 @@ export default function MainScreen() {
                         size: any
                     }) => (
                         <Image
-                            source={require('../assets/image/Vector.png')}
+                            source={require('../assets/image/Calendar.png')}
                             style={{ tintColor: color }}
                         />
                     ),
