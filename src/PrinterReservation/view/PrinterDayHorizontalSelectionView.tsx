@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { Dimensions } from 'react-native'
+import { Dimensions, StatusBar } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel'
 import {
     CarouselRenderItem,
@@ -122,6 +122,7 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
 
     return (
         <Container>
+            <StatusBar backgroundColor='#C1C1C1' />
             <Spacer height={10} />
             <Title>SIGMA 3D PRINTER</Title>
             <GeneralDate>{generalDate}</GeneralDate>
