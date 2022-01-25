@@ -5,7 +5,7 @@ export const sigmaAxios = axios.create({
     transformRequest: (data) => {
         return {
             ...data,
-            user: LoginAPI.getLoginInfo(),
+            user: LoginAPI.getLoginCredential(),
         }
     },
 })
