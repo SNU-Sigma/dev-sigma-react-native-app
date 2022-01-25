@@ -1,17 +1,18 @@
 import Animated, {
-    interpolate,
     interpolateColor,
     SharedValue,
     useAnimatedStyle,
 } from 'react-native-reanimated'
 import { format } from 'date-fns'
-import { Pressable } from 'react-native'
+import { Pressable, Text } from 'react-native'
 
 type Props = {
     date: Date
     animationValue: SharedValue<number>
     onPress: () => void
 }
+
+const WEEK_DAY = ['일', '월', '화', '수', '목', '금', '토']
 
 export default function PrinterDayHorizontalItemView(props: Props) {
     const { date, animationValue, onPress } = props
@@ -20,30 +21,12 @@ export default function PrinterDayHorizontalItemView(props: Props) {
         const backgroundColor = interpolateColor(
             animationValue.value,
             [-1, 0, 1],
-            ['white', 'blue', 'white'],
+            ['white', 'rgba(250, 255, 2, 1)', 'white'],
+            'RGB',
         )
 
         return {
             backgroundColor,
-        }
-    }, [animationValue])
-
-    const textAnimatedStyle = useAnimatedStyle(() => {
-        const color = interpolateColor(
-            animationValue.value,
-            [-1, 0, 1],
-            ['black', 'white', 'black'],
-        )
-
-        const fontSize = interpolate(
-            animationValue.value,
-            [-1, 0, 1],
-            [12, 16, 12],
-        )
-
-        return {
-            color,
-            fontSize,
         }
     }, [animationValue])
 
@@ -63,12 +46,8 @@ export default function PrinterDayHorizontalItemView(props: Props) {
             ]}
             onPress={onPress}
         >
-            <Animated.Text style={textAnimatedStyle}>
-                {format(date, 'M/d')}
-            </Animated.Text>
-            <Animated.Text style={textAnimatedStyle}>
-                {format(date, 'eee')}
-            </Animated.Text>
+            <Text>{format(date, 'd')}</Text>
+            <Text>{WEEK_DAY[date.getDay()]}</Text>
         </AnimatedPressable>
     )
 }
