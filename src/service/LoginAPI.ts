@@ -1,12 +1,27 @@
-export const LoginAPI = {
-    login: async (params: { email: string; password: string }) => {
+import { LoginCredential } from '../common/model/LoginCredential'
+
+export const LoginAPI = (() => {
+    let loginCredential: LoginCredential | undefined
+
+    const login = async (info: LoginCredential) => {
         // TODO: 추후 실제 API 연동 필요
-        if (
-            params.email === 'test_email' &&
-            params.password === 'test_password'
-        ) {
-            return Promise.resolve()
-        }
-        return Promise.reject('올바르지 않은 계정 정보입니다.')
-    },
-}
+        return new Promise<void>((resolve, reject) => {
+            setTimeout(() => {
+                if (info.email === 'sigma' && info.password === '1234') {
+                    resolve()
+                    loginCredential = info
+                }
+                reject('올바르지 않은 계정 정보입니다.')
+            }, 1000)
+        })
+    }
+
+    const getLoginCredential = () => {
+        return loginCredential
+    }
+
+    return {
+        login,
+        getLoginCredential,
+    }
+})()
