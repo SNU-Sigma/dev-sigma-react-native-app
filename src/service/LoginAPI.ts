@@ -11,7 +11,7 @@ export const LoginAPI = (() => {
                     resolve()
                     loginCredential = info
                 }
-                reject('올바르지 않은 계정 정보입니다.')
+                reject(new Error('올바르지 않은 계정 정보입니다.'))
             }, 1000)
         })
     }

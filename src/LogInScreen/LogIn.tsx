@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { Alert, Platform, View } from 'react-native'
 import {
     EmailInput,
     FindAccount,
@@ -10,6 +10,7 @@ import {
 } from './LogInStyles'
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
+import { LoginAPI } from '../service/LoginAPI'
 
 export default function LogIn() {
     const navigation = useNavigation<any>()
@@ -18,9 +19,20 @@ export default function LogIn() {
     const [password, setPassword] = useState('')
 
     const handlePress = () => {
-        console.log(email, password)
-        // LoginAPI.login({})
-        // navigation.navigate('Main')
+        LoginAPI.login({
+            email,
+            password,
+        })
+            .then(() => {
+                navigation.navigate('Main')
+            })
+            .catch((error) => {
+                if (Platform.OS === 'web') {
+                    alert(error.message)
+                } else {
+                    Alert.alert(error.message)
+                }
+            })
     }
 
     return (
