@@ -25,52 +25,20 @@ function LogInScreen({ navigation }: Props) {
 const Stack = createNativeStackNavigator()
 
 export default function App() {
-    const [appIsReady, setAppIsReady] = useState(false)
-    console.log('function', appIsReady)
-
-    useEffect(() => {
-        async function prepare() {
-            try {
-                console.log('useEffect', appIsReady)
-                await SplashScreen.preventAutoHideAsync()
-                await Font.loadAsync(Entypo.font)
-                await new Promise((resolve) => setTimeout(resolve, 2000))
-            } catch (e) {
-                console.warn(e)
-            } finally {
-                setAppIsReady(true)
-            }
-        }
-        prepare()
-    }, [])
-
-    const onLayoutRootView = useCallback(async () => {
-        console.log('onLayoutRootView', appIsReady)
-        if (appIsReady) {
-            await SplashScreen.hideAsync()
-        }
-    }, [appIsReady])
-
-    if (!appIsReady) {
-        return <SplashScreenSIGMA />
-    }
-
     return (
-        <View onLayout={onLayoutRootView}>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen
-                        name='LogIn'
-                        component={LogInScreen}
-                        options={{ title: 'Overview', headerShown: false }}
-                    />
-                    <Stack.Screen
-                        name='Main'
-                        component={Main}
-                        options={{ headerShown: false }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
-        </View>
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name='LogIn'
+                    component={LogInScreen}
+                    options={{ title: 'Overview', headerShown: false }}
+                />
+                <Stack.Screen
+                    name='Main'
+                    component={Main}
+                    options={{ headerShown: false }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
     )
 }
