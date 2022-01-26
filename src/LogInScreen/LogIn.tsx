@@ -9,12 +9,18 @@ import {
     TitleText,
 } from './LogInStyles'
 import { useNavigation } from '@react-navigation/native'
+import { useState } from 'react'
 
 export default function LogIn() {
     const navigation = useNavigation<any>()
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
     const handlePress = () => {
-        navigation.navigate('Main')
+        console.log(email, password)
+        // LoginAPI.login({})
+        // navigation.navigate('Main')
     }
 
     return (
@@ -28,11 +34,18 @@ export default function LogIn() {
         >
             <TitleText>{'SIGMA'}</TitleText>
             <SubTitleText>{'welcome'}</SubTitleText>
-            <EmailInput placeholder='snumail' placeholderTextColor={'black'} />
+            <EmailInput
+                placeholder='snumail'
+                placeholderTextColor={'black'}
+                value={email}
+                onChangeText={setEmail}
+            />
             <PasswordInput
                 placeholder='password'
                 secureTextEntry={true}
                 placeholderTextColor={'black'}
+                value={password}
+                onChangeText={setPassword}
             />
             <LogInButtonContainer onPress={handlePress}>
                 <LogInButtonText>{'LOGIN'}</LogInButtonText>
