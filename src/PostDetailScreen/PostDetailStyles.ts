@@ -3,11 +3,11 @@ import { Platform } from 'react-native'
 
 export const PostDetailView = styled.View({
     marginHorizontal: 12,
-    marginBottom: 16,
+    marginBottom: 8,
     paddingTop: 12,
     paddingHorizontal: 12,
-    backgroundColor: '#FFFFFF',
     paddingBottom: 16,
+    backgroundColor: '#FFFFFF',
     borderRadius: 24,
     borderWidth: 1,
     borderColor: '#C4C4C4',
@@ -29,8 +29,26 @@ export const AdminImage = styled.Image({
     height: 19,
 })
 
+export const CommentAuthorImage = styled.Image({
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    borderWidth: 1,
+    borderColor: 'black',
+})
+
 export const CommentView = styled.View({
     marginTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
+})
+
+export const CommentInputView = styled.View({
+    flexDirection: 'row',
+    marginHorizontal: 12,
+    marginVertical: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    backgroundColor: '#C1C1C1',
+    borderRadius: 12,
 })

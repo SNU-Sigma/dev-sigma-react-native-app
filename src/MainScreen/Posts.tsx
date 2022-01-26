@@ -1,7 +1,7 @@
 import { View, Text, FlatList, Image } from 'react-native'
 import {
     PostView,
-    ProfileImage,
+    PostAuthorImage,
     AdminImage,
     ProfileView,
     ContentText,
@@ -118,7 +118,7 @@ function RenderItem({ item }: { item: Post }) {
     return (
         <PostView>
             <ProfileView>
-                <ProfileImage source={{ uri: src }} />
+                <PostAuthorImage source={{ uri: src }} />
                 <View>
                     <Text style={{ fontSize: 14, paddingLeft: 8 }}>
                         {item.authorName}
@@ -187,7 +187,7 @@ export default function Posts() {
             <View
                 style={{
                     width: 334,
-                    height: 53,
+                    height: 52,
                     borderWidth: 1,
                     top: 95,
                     position: 'absolute',
@@ -203,7 +203,6 @@ export default function Posts() {
                 data={DATA}
                 renderItem={(props) => <RenderItem {...props} />}
                 keyExtractor={(item: Post) => item.id}
-                // showsVerticalScrollIndicator={false}
             />
         </View>
     )

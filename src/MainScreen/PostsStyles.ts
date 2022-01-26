@@ -32,7 +32,7 @@ export const ProfileView = styled.View({
     alignItems: 'center',
 })
 
-export const ProfileImage = styled.Image({
+export const PostAuthorImage = styled.Image({
     width: 42,
     height: 42,
     borderRadius: 21,
