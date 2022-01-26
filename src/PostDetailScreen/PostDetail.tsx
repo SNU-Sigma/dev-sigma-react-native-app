@@ -42,7 +42,9 @@ export default function PostDetail({ route }: { route: any }) {
             <ScrollView>
                 <PostDetailView>
                     <ProfileView>
-                        <PostAuthorImage source={{ uri: src }} />
+                        <PostAuthorImage
+                            source={{ uri: item.profilePicture }}
+                        />
                         <View>
                             <Text style={{ fontSize: 14, paddingLeft: 12 }}>
                                 {item.authorName}
@@ -81,7 +83,9 @@ export default function PostDetail({ route }: { route: any }) {
 
                             {item.comments.map((comment: Comment) => (
                                 <CommentView key={comment.id}>
-                                    <CommentAuthorImage source={{ uri: src }} />
+                                    <CommentAuthorImage
+                                        source={{ uri: comment.profilePicture }}
+                                    />
                                     <View style={{ flex: 1 }}>
                                         {/* 2줄 이상의 comment 를 위한 flex: 1 */}
                                         <Text
@@ -118,6 +122,7 @@ export default function PostDetail({ route }: { route: any }) {
             </ScrollView>
             <CommentInputView>
                 <CommentAuthorImage source={{ uri: src }} />
+                {/*My의 profilepicture로 바꿔야 함*/}
                 <TextInput
                     style={{ marginLeft: 8, flex: 1 }}
                     placeholder='댓글을 입력하세요.'

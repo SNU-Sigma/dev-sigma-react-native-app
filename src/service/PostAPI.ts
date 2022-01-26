@@ -15,7 +15,7 @@ export const PostAPI = {
                     {
                         id: '1',
                         authorName: 'Jinseok',
-                        profilePicture: '',
+                        profilePicture: src,
                         date: '2022.01.04.',
                         photos: [src, nature, stars],
                         content:
@@ -25,7 +25,7 @@ export const PostAPI = {
                             {
                                 id: '1',
                                 authorName: 'Jinseok',
-                                profilePicture: '',
+                                profilePicture: src,
                                 date: '2022.01.24.',
                                 content:
                                     '쉽지 않다 댓글이 두 줄이 넘어가면 어떻게 되는지 테스트를 꼭 해 보고 싶다는 생각이 들었다.',
@@ -33,14 +33,14 @@ export const PostAPI = {
                             {
                                 id: '2',
                                 authorName: 'Jinseok',
-                                profilePicture: '',
+                                profilePicture: src,
                                 date: '2022.01.24.',
                                 content: '쉽지 않다',
                             },
                             {
                                 id: '3',
                                 authorName: 'Jinseok',
-                                profilePicture: '',
+                                profilePicture: src,
                                 date: '2022.01.24.',
                                 content: '쉽지 않다',
                             },
@@ -49,7 +49,7 @@ export const PostAPI = {
                     {
                         id: '2',
                         authorName: 'Jinseok',
-                        profilePicture: '',
+                        profilePicture: src,
                         date: '2022.01.05.',
                         photos: [],
                         content:
@@ -60,7 +60,7 @@ export const PostAPI = {
                     {
                         id: '3',
                         authorName: 'Jinseok',
-                        profilePicture: '',
+                        profilePicture: src,
                         date: '2022.03.07.',
                         photos: [],
                         content:
@@ -71,7 +71,7 @@ export const PostAPI = {
                     {
                         id: '4',
                         authorName: 'Jinseok',
-                        profilePicture: '',
+                        profilePicture: src,
                         date: '2022.02.21.',
                         photos: [],
                         content:
