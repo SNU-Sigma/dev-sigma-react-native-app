@@ -11,14 +11,18 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 import { LoginAPI } from '../service/LoginAPI'
+import Spinner from '../common/view/Spinner'
 
 export default function LogIn() {
     const navigation = useNavigation<any>()
+
+    const [isLoading, setIsLoading] = useState(false)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const handlePress = () => {
+        setIsLoading(true)
         LoginAPI.login({
             email,
             password,
@@ -33,6 +37,9 @@ export default function LogIn() {
                     Alert.alert(error.message)
                 }
             })
+            .finally(() => {
+                setIsLoading(false)
+            })
     }
 
     return (
@@ -44,6 +51,7 @@ export default function LogIn() {
                 backgroundColor: 'white',
             }}
         >
+            <Spinner isLoading={isLoading} />
             <TitleText>{'SIGMA'}</TitleText>
             <SubTitleText>{'welcome'}</SubTitleText>
             <EmailInput
