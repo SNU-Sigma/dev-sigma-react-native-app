@@ -8,11 +8,18 @@ import * as Font from 'expo-font'
 import LogIn from './src/LogInScreen/LogIn'
 import Main from './src/MainScreen/Main'
 import SplashScreenSIGMA from './src/SplashScreen/SplashScreenSIGMA'
+import axios from 'axios'
 
 type Props = { navigation: any }
 
 function LogInScreen({ navigation }: Props) {
-    return <LogIn onPress={() => navigation.navigate('Main')} />
+    return (
+        <LogIn
+            onPress={() => {
+                navigation.navigate('Main')
+            }}
+        />
+    )
 }
 
 const Stack = createNativeStackNavigator()

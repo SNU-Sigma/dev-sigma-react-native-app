@@ -8,7 +8,6 @@ import {
     LogInButtonText,
     FindAccount,
 } from './LogInStyles'
-import axios from 'axios'
 
 type LogInProps = {
     onPress: () => void
