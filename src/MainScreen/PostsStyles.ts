@@ -9,10 +9,9 @@ export const TitleText = styled.Text({
 })
 
 export const PostView = styled.View({
-    //width: 335,
-    //height: 300,
     marginHorizontal: 24,
     marginBottom: 16,
+    paddingTop: 12,
     paddingHorizontal: 20,
     backgroundColor: '#FFFFFF',
     borderRadius: 24,
@@ -29,7 +28,6 @@ export const PostView = styled.View({
 
 export const ProfileView = styled.View({
     height: 42,
-    marginTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
 })

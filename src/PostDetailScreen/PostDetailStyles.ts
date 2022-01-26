@@ -1,14 +1,16 @@
 import styled from '@emotion/native'
 import { Platform } from 'react-native'
 
-export const PostDetailScrollView = styled.ScrollView({
-    marginHorizontal: 10,
-    paddingHorizontal: 10,
+export const PostDetailView = styled.View({
+    marginHorizontal: 12,
+    marginBottom: 16,
+    paddingTop: 12,
+    paddingHorizontal: 12,
+    backgroundColor: '#FFFFFF',
+    paddingBottom: 16,
     borderRadius: 24,
     borderWidth: 1,
-    backgroundColor: 'white',
     borderColor: '#C4C4C4',
-    marginBottom: 16,
     shadowColor: Platform.select({
         android: '#000000',
         default: 'rgba(0,0,0,0.25)',
@@ -21,8 +23,8 @@ export const PostDetailScrollView = styled.ScrollView({
 
 export const AdminImage = styled.Image({
     position: 'absolute',
-    top: 10,
-    left: 30,
+    top: 5,
+    left: 36,
     width: 19,
     height: 19,
 })

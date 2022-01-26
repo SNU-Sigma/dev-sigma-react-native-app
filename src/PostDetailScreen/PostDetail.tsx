@@ -1,14 +1,10 @@
-import { View, Text, FlatList, Image } from 'react-native'
+import { View, Text, FlatList, Image, ScrollView } from 'react-native'
 import {
     ProfileImage,
     ProfileView,
     ContentText,
 } from '../MainScreen/PostsStyles'
-import {
-    AdminImage,
-    PostDetailScrollView,
-    CommentView,
-} from './PostDetailStyles'
+import { AdminImage, PostDetailView, CommentView } from './PostDetailStyles'
 import adminMark from '../assets/images/adminMark.png'
 import { Comment } from '../MainScreen/Posts'
 
@@ -24,38 +20,11 @@ const renderPhotoItem = ({ item }: { item: string }) => {
     )
 }
 
-const renderCommentItem = ({ item }: { item: Comment }) => {
-    return (
-        <CommentView>
-            <ProfileImage source={{ uri: src }} />
-            <View style={{ flex: 1 }}>
-                {/* 2줄 이상의 comment 를 위한 flex: 1 */}
-                <Text style={{ fontSize: 14, paddingLeft: 12 }}>
-                    {item.authorName}
-                </Text>
-                <Text style={{ fontSize: 10, paddingLeft: 12 }}>
-                    {item.content}
-                </Text>
-                <Text
-                    style={{
-                        fontSize: 8,
-                        paddingLeft: 12,
-                        color: 'grey',
-                    }}
-                >
-                    {item.date}
-                </Text>
-                {/*comment 에는 isAdmin 이 없다.. ㅠㅠ*/}
-            </View>
-        </CommentView>
-    )
-}
-
 export default function PostDetail({ route }: { route: any }) {
     const { post: item } = route.params
     return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <PostDetailScrollView>
+        <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+            <PostDetailView>
                 <ProfileView>
                     <ProfileImage source={{ uri: src }} />
                     <View>
@@ -86,19 +55,14 @@ export default function PostDetail({ route }: { route: any }) {
                     />
                 )}
                 {item.comments.length > 0 && (
-                    <View style={{ marginBottom: 20 }}>
+                    <View>
                         <View
                             style={{
                                 borderBottomColor: '#C4C4C4',
                                 borderBottomWidth: 1,
                             }}
                         />
-                        {/*<FlatList*/}
-                        {/*    data={item.comments}*/}
-                        {/*    renderItem={renderCommentItem}*/}
-                        {/*    keyExtractor={(item: Comment) => item.id}*/}
-                        {/*    showsVerticalScrollIndicator={false}*/}
-                        {/*/>*/}
+
                         {item.comments.map((comment: Comment) => (
                             <CommentView key={comment.id}>
                                 <ProfileImage source={{ uri: src }} />
@@ -135,7 +99,7 @@ export default function PostDetail({ route }: { route: any }) {
                         ))}
                     </View>
                 )}
-            </PostDetailScrollView>
-        </View>
+            </PostDetailView>
+        </ScrollView>
     )
 }

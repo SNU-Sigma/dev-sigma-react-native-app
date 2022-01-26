@@ -13,6 +13,7 @@ import picture from '../assets/images/picture.png'
 import adminMark from '../assets/images/adminMark.png'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParamList } from '../../RootStackParamList'
 //import { SearchBar } from 'react-native-elements'
 //import { Searchbar } from 'react-native-paper'
 
@@ -30,7 +31,7 @@ export type Post = {
     date: string
     photos: Array<string>
     content: string
-    isAdmin: boolean
+    isAnnouncement: boolean
     comments: Array<Comment>
 }
 
@@ -51,7 +52,7 @@ const DATA: Array<Post> = [
         photos: [src, nature, stars],
         content:
             '동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.',
-        isAdmin: true,
+        isAnnouncement: true,
         comments: [
             {
                 id: '1',
@@ -85,7 +86,7 @@ const DATA: Array<Post> = [
         photos: [],
         content:
             '동아리의 앱 개발이 한창 진행중입니다. 전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다.',
-        isAdmin: false,
+        isAnnouncement: false,
         comments: [],
     },
     {
@@ -96,7 +97,7 @@ const DATA: Array<Post> = [
         photos: [],
         content:
             '동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세 남산 위에 저 소나무 철갑을 두른 듯',
-        isAdmin: true,
+        isAnnouncement: true,
         comments: [],
     },
     {
@@ -107,14 +108,10 @@ const DATA: Array<Post> = [
         photos: [],
         content:
             '전기정보공학부 소속의 과 동아리이지만, 전기과 학생들 말고도 타 공대나 자연대, 더 나아가 미대 학생들도 같이 참여하고 있습니다. 동아리의 앱 개발이 한창 진행중입니다.',
-        isAdmin: true,
+        isAnnouncement: true,
         comments: [],
     },
 ]
-
-type RootStackParamList = {
-    PostDetail: { post: Post }
-}
 
 function RenderItem({ item }: { item: Post }) {
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
@@ -137,7 +134,7 @@ function RenderItem({ item }: { item: Post }) {
                     </Text>
                 </View>
             </ProfileView>
-            {item.isAdmin && <AdminImage source={adminMark} />}
+            {item.isAnnouncement && <AdminImage source={adminMark} />}
             <ContentText numberOfLines={2}>{item.content}</ContentText>
             <MoreText
                 onPress={() =>
