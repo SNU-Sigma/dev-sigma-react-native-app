@@ -1,19 +1,22 @@
 import { View } from 'react-native'
 import {
-    TitleText,
-    SubTitleText,
     EmailInput,
-    PasswordInput,
+    FindAccount,
     LogInButtonContainer,
     LogInButtonText,
-    FindAccount,
+    PasswordInput,
+    SubTitleText,
+    TitleText,
 } from './LogInStyles'
+import { useNavigation } from '@react-navigation/native'
 
-type LogInProps = {
-    onPress: () => void
-}
+export default function LogIn() {
+    const navigation = useNavigation<any>()
 
-export default function LogIn({ onPress }: LogInProps) {
+    const handlePress = () => {
+        navigation.navigate('Main')
+    }
+
     return (
         <View
             style={{
@@ -31,7 +34,7 @@ export default function LogIn({ onPress }: LogInProps) {
                 secureTextEntry={true}
                 placeholderTextColor={'black'}
             />
-            <LogInButtonContainer onPress={onPress}>
+            <LogInButtonContainer onPress={handlePress}>
                 <LogInButtonText>{'LOGIN'}</LogInButtonText>
             </LogInButtonContainer>
             <FindAccount onPress={() => console.log('아이디/비밀번호 찾기')}>
