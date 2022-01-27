@@ -11,7 +11,7 @@ import {
     PostWriteTouchableOpacity,
 } from './PostsStyles'
 import adminMark from '../assets/images/adminMark.png'
-import sigmaProfilePicture from '../assets/images/sigmaProfile.png'
+// import sigmaProfilePicture from '../assets/images/sigmaProfile.png'
 import postWriteMark from '../assets/images/postWrite.png'
 import { useNavigation } from '@react-navigation/native'
 import { useAsync } from 'react-async'
@@ -46,8 +46,7 @@ function RenderItem({ item }: { item: Post }) {
     return (
         <PostView>
             <ProfileView>
-                <PostAuthorImage source={sigmaProfilePicture} />
-                {/*uri: item.profilePicture 로 바꿔야 함*/}
+                <PostAuthorImage source={{ uri: item.profilePicture }} />
                 <View>
                     <Text style={{ fontSize: 14, paddingLeft: 8 }}>
                         {item.authorName}

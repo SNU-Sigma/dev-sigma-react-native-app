@@ -24,7 +24,7 @@ import {
 import { Comment } from '../MainScreen/Posts'
 import adminMark from '../assets/images/adminMark.png'
 import commentSubmitMark from '../assets/images/commentSubmit.png'
-import sigmaProfilePicture from '../assets/images/sigmaProfile.png'
+//import sigmaProfilePicture from '../assets/images/sigmaProfile.png'
 import { useState } from 'react'
 import { PostAPI } from '../service/PostAPI'
 import { Post } from '../MainScreen/Posts'
@@ -41,7 +41,7 @@ const renderPhotoItem = ({ item }: { item: string }) => {
 function CommentInput({ item }: { item: Post }) {
     const [commentContent, setCommentContent] = useState('')
     const [isLoading, setIsLoading] = useState(false)
-    const handleSubmit = () => {
+    const handleCommentSubmit = () => {
         setIsLoading(true)
         PostAPI.postComment({
             postId: item.id,
@@ -63,8 +63,7 @@ function CommentInput({ item }: { item: Post }) {
     }
     return (
         <CommentInputView>
-            <CommentAuthorImage source={sigmaProfilePicture} />
-            {/*uri: item.profilePicture 로 바꿔야 함*/}
+            <CommentAuthorImage source={{ uri: item.profilePicture }} />
             <TextInput
                 style={{ marginLeft: 8, flex: 1 }}
                 placeholder='댓글을 입력하세요.'
@@ -72,7 +71,10 @@ function CommentInput({ item }: { item: Post }) {
                 value={commentContent}
                 onChangeText={setCommentContent}
             />
-            <TouchableOpacity onPress={handleSubmit} disabled={isLoading}>
+            <TouchableOpacity
+                onPress={handleCommentSubmit}
+                disabled={isLoading}
+            >
                 <Image
                     source={commentSubmitMark}
                     style={{ width: 30, height: 30 }}
@@ -90,8 +92,7 @@ export default function PostDetail({ route }: { route: any }) {
                 <PostDetailView>
                     <ProfileView>
                         <PostAuthorImage
-                            source={sigmaProfilePicture}
-                            // uri: item.profilePicture 로 바꿔야 함
+                            source={{ uri: item.profilePicture }}
                         />
                         <View>
                             <Text style={{ fontSize: 14, paddingLeft: 12 }}>
@@ -132,8 +133,7 @@ export default function PostDetail({ route }: { route: any }) {
                             {item.comments.map((comment: Comment) => (
                                 <CommentView key={comment.id}>
                                     <CommentAuthorImage
-                                        source={sigmaProfilePicture}
-                                        // uri: comment.profilePicture 로 바꿔야 함
+                                        source={{ uri: comment.profilePicture }}
                                     />
                                     <View style={{ flex: 1 }}>
                                         {/* 2줄 이상의 comment 를 위한 flex: 1 */}
