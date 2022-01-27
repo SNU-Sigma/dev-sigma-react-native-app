@@ -11,7 +11,7 @@ export const TitleText = styled.Text({
 export const PostView = styled.View({
     marginHorizontal: 24,
     marginBottom: 16,
-    paddingTop: 12,
+    paddingVertical: 12,
     paddingHorizontal: 20,
     backgroundColor: '#FFFFFF',
     borderRadius: 24,
@@ -63,8 +63,16 @@ export const MoreText = styled.Text({
 })
 
 export const ImageView = styled.View({
-    height: 156,
+    height: 140,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+})
+
+export const PostWriteTouchableOpacity = styled.TouchableOpacity({
+    width: 50,
+    height: 50,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
 })

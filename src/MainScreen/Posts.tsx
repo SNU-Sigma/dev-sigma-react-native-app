@@ -8,9 +8,11 @@ import {
     MoreText,
     ImageView,
     TitleText,
+    PostWriteTouchableOpacity,
 } from './PostsStyles'
-import picture from '../assets/images/picture.png'
+//import picture from '../assets/images/picture.png'
 import adminMark from '../assets/images/adminMark.png'
+import postWriteMark from '../assets/images/postWrite.png'
 import { useNavigation } from '@react-navigation/native'
 import { useAsync } from 'react-async'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -69,16 +71,23 @@ function RenderItem({ item }: { item: Post }) {
             >
                 더보기{' >'}
             </MoreText>
-            <ImageView>
-                <Image
-                    source={picture}
-                    style={{ width: 138, height: 132, margin: 5 }}
-                />
-                <Image
-                    source={picture}
-                    style={{ width: 138, height: 132, margin: 5 }}
-                />
-            </ImageView>
+            {item.photos.length > 0 && (
+                <ImageView>
+                    <Image
+                        source={{ uri: item.photos[0] }}
+                        style={{ width: 140, height: 132, margin: 4 }}
+                    />
+                    <Image
+                        source={{ uri: item.photos[1] }}
+                        style={{ width: 140, height: 132, margin: 4 }}
+                    />
+                    {/*{item.photos.length > 2 && (*/}
+                    {/*    <Text style={{ position: 'absolute', top: 70 }}>*/}
+                    {/*        +{item.photos.length - 2}장*/}
+                    {/*    </Text>*/}
+                    {/*)}*/}
+                </ImageView>
+            )}
         </PostView>
     )
 }
@@ -91,6 +100,7 @@ export default function Posts() {
     const { data, error, isLoading } = useAsync({
         promiseFn: PostAPI.getPosts,
     })
+    const navigation = useNavigation<any>()
     if (isLoading) return <Spinner isLoading={isLoading} />
     if (data)
         return (
@@ -135,6 +145,17 @@ export default function Posts() {
                     renderItem={(props) => <RenderItem {...props} />}
                     keyExtractor={(item: Post) => item.id}
                 />
+                <PostWriteTouchableOpacity
+                    onPress={() => navigation.navigate('PostWrite')}
+                >
+                    <Image
+                        source={postWriteMark}
+                        style={{
+                            width: 50,
+                            height: 50,
+                        }}
+                    />
+                </PostWriteTouchableOpacity>
             </View>
         )
     return null

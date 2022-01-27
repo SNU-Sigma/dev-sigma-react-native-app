@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LogIn from './src/LogInScreen/LogIn'
 import Main from './src/MainScreen/Main'
 import PostDetail from './src/PostDetailScreen/PostDetail'
+import PostWrite from './src/PostWriteScreen/PostWrite'
 
 type Props = { navigation: any }
 
@@ -28,15 +29,27 @@ function App() {
                         name='Main'
                         component={Main}
                         options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name='PostDetail'
-                    component={PostDetail}
-                    options={{
-                        headerBackVisible: true,
-                        title: '게시물', //item.author 를 가져올 수 있으면 좋겠네요.. ㅎㅎ
-                        headerTitleAlign: 'center',
-                    }}
+                    />
+                    <Stack.Screen
+                        name='PostDetail'
+                        component={PostDetail}
+                        options={{
+                            headerBackVisible: true,
+                            title: '게시물',
+                            headerTitleAlign: 'center',
+                        }}
+                    />
+                    <Stack.Screen
+                        name='PostWrite'
+                        component={PostWrite}
+                        options={{
+                            headerBackVisible: true,
+                            title: '게시물 만들기',
+                            headerTitleAlign: 'center',
+                            headerStyle: {
+                                backgroundColor: '#FAFF02',
+                            },
+                        }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

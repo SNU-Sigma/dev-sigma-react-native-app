@@ -35,7 +35,7 @@ const renderPhotoItem = ({ item }: { item: string }) => {
     return (
         <Image
             source={{ uri: item }}
-            style={{ width: 138, height: 132, margin: 5 }}
+            style={{ width: 140, height: 132, margin: 4 }}
         />
     )
 }
