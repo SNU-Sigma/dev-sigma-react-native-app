@@ -171,7 +171,14 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
             <HeaderContainer>
                 <Header style={{ flex: 1 }}>Time</Header>
                 <Header style={{ width: 150 }}>Cubicon 프린터</Header>
-                <Header style={{ width: 150 }}>Guider 2 프린터</Header>
+                <Header
+                    style={{
+                        width: 150,
+                        marginRight: 10,
+                    }}
+                >
+                    Guider 2 프린터
+                </Header>
             </HeaderContainer>
         </Container>
     )
