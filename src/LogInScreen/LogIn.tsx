@@ -16,7 +16,12 @@ type LogInProps = {
 export default function LogIn({ onPress }: LogInProps) {
     return (
         <View
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+            style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'white',
+            }}
         >
             <TitleText>{'SIGMA'}</TitleText>
             <SubTitleText>{'welcome'}</SubTitleText>

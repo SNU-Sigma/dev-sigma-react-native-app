@@ -1,14 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { View, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Entypo } from '@expo/vector-icons'
-import * as SplashScreen from 'expo-splash-screen'
-import * as Font from 'expo-font'
 import LogIn from './src/LogInScreen/LogIn'
 import Main from './src/MainScreen/Main'
-import SplashScreenSIGMA from './src/SplashScreen/SplashScreenSIGMA'
-import axios from 'axios'
+import PostDetail from './src/PostDetailScreen/PostDetail'
 
 type Props = { navigation: any }
 
@@ -26,19 +21,30 @@ const Stack = createNativeStackNavigator()
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen
-                    name='LogIn'
-                    component={LogInScreen}
-                    options={{ title: 'Overview', headerShown: false }}
-                />
-                <Stack.Screen
-                    name='Main'
-                    component={Main}
-                    options={{ headerShown: false }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <NavigationContainer>
+                <Stack.Navigator screenOptions={{ headerShadowVisible: false }}>
+                    <Stack.Screen
+                        name='LogIn'
+                        component={LogInScreen}
+                        options={{ title: 'Overview', headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Main'
+                        component={Main}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='PostDetail'
+                        component={PostDetail}
+                        options={{
+                            headerBackVisible: true,
+                            title: '게시물', //item.author 를 가져올 수 있으면 좋겠네요.. ㅎㅎ
+                            headerTitleAlign: 'center',
+                        }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </GestureHandlerRootView>
     )
 }

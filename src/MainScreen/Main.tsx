@@ -1,6 +1,6 @@
 import { Image } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Post from './Post'
+import Posts from './Posts'
 import PrinterReservation from './PrinterReservation'
 import MyPage from './MyPage'
 
@@ -19,7 +19,7 @@ export default function MainScreen() {
         >
             <Tab.Screen
                 name='Post'
-                component={Post}
+                component={Posts}
                 options={{
                     headerShown: false,
                     tabBarActiveTintColor: 'black',

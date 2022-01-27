@@ -1,11 +1,5 @@
-import { View, Text } from 'react-native'
+import { PrinterReservationScreen } from '../PrinterReservation/view/PrinterReservationScreen'
 
-export default function PrinterReseration() {
-    return (
-        <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-            <Text>Printer Reservation</Text>
-        </View>
-    )
+export default function PrinterReservation() {
+    return <PrinterReservationScreen />
 }
