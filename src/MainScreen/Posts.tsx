@@ -13,8 +13,8 @@ import {
 import adminMark from '../assets/images/adminMark.png'
 // import sigmaProfilePicture from '../assets/images/sigmaProfile.png'
 import postWriteMark from '../assets/images/postWrite.png'
-import { useNavigation } from '@react-navigation/native'
-import { useAsync } from 'react-async'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
+import { useEffect, useState } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../RootStackParamList'
 import { PostAPI } from '../service/PostAPI'
@@ -97,12 +97,19 @@ const ListHeader = () => {
 }
 
 export default function Posts() {
-    const { data, error, isLoading } = useAsync({
-        promiseFn: PostAPI.getPosts,
-    })
+    const isFocused = useIsFocused()
+    const [posts, setPosts] = useState<Array<Post>>([])
+    const [isLoading, setIsLoading] = useState(false)
+    useEffect(() => {
+        setIsLoading(true)
+        PostAPI.getPosts().then((POSTS) => {
+            setPosts(POSTS)
+            setIsLoading(false)
+        })
+    }, [isFocused])
     const navigation = useNavigation<any>()
     if (isLoading) return <Spinner isLoading={isLoading} />
-    if (data)
+    if (posts)
         return (
             <View
                 style={{
@@ -141,7 +148,7 @@ export default function Posts() {
                 <FlatList
                     style={{ marginTop: 160 }}
                     ListHeaderComponent={ListHeader}
-                    data={data}
+                    data={posts}
                     renderItem={(props) => <RenderItem {...props} />}
                     keyExtractor={(item: Post) => item.id}
                 />
