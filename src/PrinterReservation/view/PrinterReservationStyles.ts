@@ -1,9 +1,9 @@
 import { Platform } from 'react-native'
 import styled from '@emotion/native'
 
-export const X = styled.Image({
+export const X = styled.TouchableOpacity({
     marginLeft: 38,
-    marginTop: 12,
+    marginTop: 20,
 })
 
 export const Title = styled.Text({

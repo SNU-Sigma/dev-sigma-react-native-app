@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { View, Text, FlatList, ScrollView } from 'react-native'
+import { View, Image, Text, FlatList, ScrollView } from 'react-native'
 import * as style from './PrinterReservationStyles'
 import { add } from 'date-fns'
 import { ReserveAPI } from '../../service/ReserveAPI'
+import PopUp from '../popup/PopUp'
 
 const calculateDay = (n: number) => {
     switch (n) {
@@ -30,9 +31,8 @@ export default function PrinterReservationCalendar({
     navigation?: any
     route?: any
 }) {
-    const onOutHandler = () => {
-        navigation.goback()
-    }
+    const [modalVisible, setModalVisible] = useState(false)
+    const onOutHandler = () => setModalVisible(true)
 
     //const data: Date = route.params.startDate
     const Start = new Date()
@@ -97,8 +97,11 @@ export default function PrinterReservationCalendar({
     }
 
     return (
-        <ScrollView>
-            <style.X source={require('../../assets/image/X.png')} />
+        <View>
+            <PopUp visible={modalVisible} setVisible={setModalVisible} />
+            <style.X onPress={onOutHandler}>
+                <Image source={require('../../assets/image/Out.png')} />
+            </style.X>
             <style.Title>{'제목'}</style.Title>
             <style.TitleInput
                 placeholder={'제목을 입력하세요...'}
@@ -184,6 +187,6 @@ export default function PrinterReservationCalendar({
             <style.SaveButton onPress={onSave}>
                 <Text>{'저장'}</Text>
             </style.SaveButton>
-        </ScrollView>
+        </View>
     )
 }
