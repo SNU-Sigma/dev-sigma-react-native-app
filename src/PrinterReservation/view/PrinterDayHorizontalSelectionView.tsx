@@ -128,6 +128,11 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
             <GeneralDate>{generalDate}</GeneralDate>
             <Spacer height={4} />
             {carousel}
+            <HeaderContainer>
+                <Header style={{ flex: 1 }}>Time</Header>
+                <Header style={{ width: 150 }}>Cubicon 프린터</Header>
+                <Header style={{ width: 150 }}>Guider 2 프린터</Header>
+            </HeaderContainer>
         </Container>
     )
 }
@@ -149,4 +154,18 @@ const GeneralDate = styled.Text({
     fontSize: 13,
     lineHeight: 15,
     marginLeft: 20,
+})
+
+const HeaderContainer = styled.View({
+    backgroundColor: '#C1C1C1',
+    paddingVertical: 5,
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+})
+
+const Header = styled.Text({
+    fontSize: 13,
+    lineHeight: 15,
+    textAlign: 'center',
 })
