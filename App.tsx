@@ -5,6 +5,18 @@ import LogIn from './src/LogInScreen/LogIn'
 import Main from './src/MainScreen/Main'
 import PostDetail from './src/PostDetailScreen/PostDetail'
 import PostWrite from './src/PostWriteScreen/PostWrite'
+import PrinterReservationCalendar from './src/PrinterReservation/view/PrinterReservationCalendar'
+
+export default function App() {
+    return <PrinterReservationCalendar />
+}
+
+/*
+type Props = { navigation: any }
+
+function LogInScreen({ navigation }: Props) {
+    return <LogIn onPress={() => navigation.navigate('Main')} />
+}
 
 const Stack = createNativeStackNavigator()
 
@@ -49,3 +61,6 @@ export default function App() {
         </GestureHandlerRootView>
     )
 }
+
+export default App
+*/
