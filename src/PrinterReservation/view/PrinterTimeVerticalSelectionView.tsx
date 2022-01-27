@@ -54,38 +54,39 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                 style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    backgroundColor: '#E0E0E0',
+                    backgroundColor: 'white',
                     justifyContent: 'flex-end',
                     height: ITEM_HEIGHT,
                 }}
             >
                 <View
                     style={{
-                        width: '100%',
-                        height: '100%',
-                        alignItems: 'flex-end',
-                        paddingRight: 8,
-                        backgroundColor: 'white',
+                        flex: 1,
+                        alignSelf: 'flex-start',
+                        alignItems: 'center',
                     }}
                 >
-                    <Text>{format(item, 'haa')}</Text>
+                    <Text>{format(item, 'h aa')}</Text>
                 </View>
                 <View
                     style={{
                         height: '100%',
                         width: 150,
-                        marginTop: 1,
-                        marginRight: 0.5,
-                        backgroundColor: 'white',
+                        borderColor: '#E0E0E0',
+                        borderTopWidth: 1,
+                        borderRightWidth: 1,
+                        backgroundColor: '#FAFAFA',
                     }}
                 />
                 <View
                     style={{
                         height: '100%',
                         width: 150,
-                        marginTop: 1,
-                        marginLeft: 0.5,
-                        backgroundColor: 'white',
+                        borderColor: '#E0E0E0',
+                        borderTopWidth: 1,
+                        borderRightWidth: 1,
+                        backgroundColor: '#FAFAFA',
+                        marginRight: 10,
                     }}
                 />
             </View>
