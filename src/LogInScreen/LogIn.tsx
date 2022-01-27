@@ -8,8 +8,6 @@ import {
     LogInButtonText,
     FindAccount,
 } from './LogInStyles'
-import '../assets/fonts/SIGMA.png'
-import '../assets/fonts/Welcome.png'
 
 type LogInProps = {
     onPress: () => void

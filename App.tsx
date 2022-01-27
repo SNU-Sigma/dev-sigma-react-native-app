@@ -1,6 +1,5 @@
-import * as React from 'react'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LogIn from './src/LogInScreen/LogIn'
 import Main from './src/MainScreen/Main'
@@ -9,12 +8,18 @@ import PostDetail from './src/PostDetailScreen/PostDetail'
 type Props = { navigation: any }
 
 function LogInScreen({ navigation }: Props) {
-    return <LogIn onPress={() => navigation.navigate('Main')} />
+    return (
+        <LogIn
+            onPress={() => {
+                navigation.navigate('Main')
+            }}
+        />
+    )
 }
 
 const Stack = createNativeStackNavigator()
 
-function App() {
+export default function App() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <NavigationContainer>
@@ -28,20 +33,18 @@ function App() {
                         name='Main'
                         component={Main}
                         options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name='PostDetail'
-                    component={PostDetail}
-                    options={{
-                        headerBackVisible: true,
-                        title: '게시물', //item.author 를 가져올 수 있으면 좋겠네요.. ㅎㅎ
-                        headerTitleAlign: 'center',
-                    }}
+                    />
+                    <Stack.Screen
+                        name='PostDetail'
+                        component={PostDetail}
+                        options={{
+                            headerBackVisible: true,
+                            title: '게시물', //item.author 를 가져올 수 있으면 좋겠네요.. ㅎㅎ
+                            headerTitleAlign: 'center',
+                        }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
         </GestureHandlerRootView>
     )
 }
-
-export default App
