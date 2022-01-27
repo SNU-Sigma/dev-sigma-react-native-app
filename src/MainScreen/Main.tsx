@@ -33,7 +33,7 @@ export default function MainScreen() {
                     }) => (
                         <Image
                             source={require('../assets/image/Home.png')}
-                            style={{ tintColor: color }}
+                            style={{ tintColor: color, width: 31, height: 31 }}
                         />
                     ),
                 }}
@@ -54,7 +54,7 @@ export default function MainScreen() {
                     }) => (
                         <Image
                             source={require('../assets/image/Calendar.png')}
-                            style={{ tintColor: color }}
+                            style={{ tintColor: color, width: 31, height: 31 }}
                         />
                     ),
                 }}
@@ -75,7 +75,7 @@ export default function MainScreen() {
                     }) => (
                         <Image
                             source={require('../assets/image/Me.png')}
-                            style={{ tintColor: color }}
+                            style={{ tintColor: color, width: 31, height: 31 }}
                         />
                     ),
                 }}
