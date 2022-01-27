@@ -24,12 +24,10 @@ import {
 import { Comment } from '../MainScreen/Posts'
 import adminMark from '../assets/images/adminMark.png'
 import commentSubmitMark from '../assets/images/commentSubmit.png'
+import sigmaProfilePicture from '../assets/images/sigmaProfile.png'
 import { useState } from 'react'
 import { PostAPI } from '../service/PostAPI'
 import { Post } from '../MainScreen/Posts'
-
-const src =
-    'https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=620&quality=85&auto=format&fit=max&s=21718fb1379918410ea10054db89f665'
 
 const renderPhotoItem = ({ item }: { item: string }) => {
     return (
@@ -65,8 +63,8 @@ function CommentInput({ item }: { item: Post }) {
     }
     return (
         <CommentInputView>
-            <CommentAuthorImage source={{ uri: src }} />
-            {/*My의 profilepicture로 바꿔야 함*/}
+            <CommentAuthorImage source={sigmaProfilePicture} />
+            {/*uri: item.profilePicture 로 바꿔야 함*/}
             <TextInput
                 style={{ marginLeft: 8, flex: 1 }}
                 placeholder='댓글을 입력하세요.'
@@ -92,7 +90,8 @@ export default function PostDetail({ route }: { route: any }) {
                 <PostDetailView>
                     <ProfileView>
                         <PostAuthorImage
-                            source={{ uri: item.profilePicture }}
+                            source={sigmaProfilePicture}
+                            // uri: item.profilePicture 로 바꿔야 함
                         />
                         <View>
                             <Text style={{ fontSize: 14, paddingLeft: 12 }}>
@@ -133,9 +132,8 @@ export default function PostDetail({ route }: { route: any }) {
                             {item.comments.map((comment: Comment) => (
                                 <CommentView key={comment.id}>
                                     <CommentAuthorImage
-                                        source={{
-                                            uri: comment.profilePicture,
-                                        }}
+                                        source={sigmaProfilePicture}
+                                        // uri: comment.profilePicture 로 바꿔야 함
                                     />
                                     <View style={{ flex: 1 }}>
                                         {/* 2줄 이상의 comment 를 위한 flex: 1 */}

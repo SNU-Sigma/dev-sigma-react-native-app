@@ -1,7 +1,7 @@
 import { Post } from '../MainScreen/Posts'
 
 const src =
-    'https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=620&quality=85&auto=format&fit=max&s=21718fb1379918410ea10054db89f665'
+    'https://www.kedglobal.com/data/ked/image/2020/12/08/ked202012080028.659x.9.png'
 const nature =
     'https://s3.ap-northeast-2.amazonaws.com/img.kormedi.com/news/culture/it/__icsFiles/artimage/2015/04/15/c_km60701/650888_540.jpg'
 const stars =
