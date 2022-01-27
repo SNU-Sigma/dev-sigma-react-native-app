@@ -38,17 +38,27 @@ const renderPhotoItem = ({ item }: { item: string }) => {
     )
 }
 
-function CommentInput({ item }: { item: Post }) {
+function CommentInput({
+    item,
+    setComments,
+}: {
+    item: Post
+    setComments: (comments: Array<Comment>) => void
+}) {
     const [commentContent, setCommentContent] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const handleCommentSubmit = () => {
         setIsLoading(true)
+
         PostAPI.postComment({
             postId: item.id,
             content: commentContent,
         })
             .then(() => {
                 setCommentContent('')
+                PostAPI.getPost({ id: item.id }).then(({ comments }) => {
+                    setComments(comments)
+                })
             })
             .catch((error) => {
                 if (Platform.OS === 'web') {
@@ -86,6 +96,7 @@ function CommentInput({ item }: { item: Post }) {
 
 export default function PostDetail({ route }: { route: any }) {
     const { post: item } = route.params
+    const [comments, setComments] = useState<Array<Comment>>(item.comments)
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             <ScrollView>
@@ -121,16 +132,17 @@ export default function PostDetail({ route }: { route: any }) {
                             showsHorizontalScrollIndicator={false}
                         />
                     )}
-                    {item.comments.length > 0 && (
+                    {comments.length > 0 && (
                         <View>
                             <View
                                 style={{
                                     borderBottomColor: '#C4C4C4',
                                     borderBottomWidth: 1,
+                                    marginTop: 4,
                                 }}
                             />
 
-                            {item.comments.map((comment: Comment) => (
+                            {comments.map((comment: Comment) => (
                                 <CommentView key={comment.id}>
                                     <CommentAuthorImage
                                         source={{ uri: comment.profilePicture }}
@@ -169,7 +181,7 @@ export default function PostDetail({ route }: { route: any }) {
                     )}
                 </PostDetailView>
             </ScrollView>
-            <CommentInput item={item} />
+            <CommentInput item={item} setComments={setComments} />
         </View>
     )
 }

@@ -115,7 +115,7 @@ export const PostAPI = {
                             content,
                             date: lightFormat(Date.now(), 'yyyy.MM.dd'),
                             authorName: '테스트_유저네임',
-                            id: post.comments.length.toString(),
+                            id: (post.comments.length + 1).toString(),
                             profilePicture,
                         }),
                     }
