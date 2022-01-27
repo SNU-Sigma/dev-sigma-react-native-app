@@ -6,9 +6,11 @@ import Main from './src/MainScreen/Main'
 import PostDetail from './src/PostDetailScreen/PostDetail'
 import PostWrite from './src/PostWriteScreen/PostWrite'
 import PrinterReservationCalendar from './src/PrinterReservation/view/PrinterReservationCalendar'
+import PrinterInfo from './src/PrinterReservation/view/PrinterInfo'
 
 export default function App() {
-    return <PrinterReservationCalendar />
+    //return <PrinterReservationCalendar />
+    return <PrinterInfo />
 }
 
 /*

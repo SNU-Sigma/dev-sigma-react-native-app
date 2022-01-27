@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { View, Image, Text, FlatList, ScrollView } from 'react-native'
-import * as style from './PrinterReservationStyles'
+import * as style from './styles/PrinterReservationStyles'
 import { add } from 'date-fns'
 import { ReserveAPI } from '../../service/ReserveAPI'
 import PopUp from '../popup/PopUp'
 
-const calculateDay = (n: number) => {
+export const calculateDay = (n: number) => {
     switch (n) {
         case 0:
             return '일요일'
