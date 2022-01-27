@@ -1,10 +1,15 @@
 import { Platform } from 'react-native'
 import styled from '@emotion/native'
 
+export const X = styled.Image({
+    marginLeft: 38,
+    marginTop: 12,
+})
+
 export const Title = styled.Text({
     height: 18,
     marginLeft: 28,
-    marginTop: 49,
+    marginTop: 26,
     color: '#000000',
 })
 

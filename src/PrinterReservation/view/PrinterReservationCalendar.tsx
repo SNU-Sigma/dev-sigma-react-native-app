@@ -30,6 +30,10 @@ export default function PrinterReservationCalendar({
     navigation?: any
     route?: any
 }) {
+    const onOutHandler = () => {
+        navigation.goback()
+    }
+
     //const data: Date = route.params.startDate
     const Start = new Date()
     const startMonth = Start.getMonth() + 1
@@ -94,6 +98,7 @@ export default function PrinterReservationCalendar({
 
     return (
         <ScrollView>
+            <style.X source={require('../../assets/image/X.png')} />
             <style.Title>{'제목'}</style.Title>
             <style.TitleInput
                 placeholder={'제목을 입력하세요...'}
