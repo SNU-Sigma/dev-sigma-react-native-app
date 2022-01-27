@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { View, Text, FlatList, ScrollView } from 'react-native'
 import * as style from './PrinterReservationStyles'
 import { add } from 'date-fns'
+import { ReserveAPI } from '../../service/ReserveAPI'
 
 const calculateDay = (n: number) => {
     switch (n) {
@@ -72,7 +73,24 @@ export default function PrinterReservationCalendar({
         '3. 프린터 사용시에는 동아리 방의 창문을 열어서 환기를 부탁드립니다.',
     ]
 
-    const onSave = () => {}
+    const onSave = () => {
+        ReserveAPI.setReserve({
+            Title: title,
+            Start: Start,
+            End: End,
+            User: user,
+        })
+            .then(() => {
+                alert('success!')
+            })
+            .catch((e) => {
+                alert(e)
+                console.log(e)
+            })
+            .finally(() => {
+                console.log('finally!')
+            })
+    }
 
     return (
         <ScrollView>
