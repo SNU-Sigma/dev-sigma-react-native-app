@@ -5,6 +5,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { format } from 'date-fns'
 import { Pressable, Text } from 'react-native'
+import { Shadow } from 'react-native-shadow-2'
 
 type Props = {
     date: Date
@@ -31,24 +32,33 @@ export default function PrinterDayHorizontalItemView(props: Props) {
     }, [animationValue])
 
     return (
-        <AnimatedPressable
-            style={[
-                {
-                    flex: 1,
-                    marginVertical: 10,
-                    marginHorizontal: 8,
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 32,
-                },
-                viewAnimatedStyle,
-            ]}
-            onPress={onPress}
+        <Shadow
+            offset={[0, 4]}
+            startColor={'rgba(0, 0, 0, 0.25)'}
+            distance={4}
+            containerViewStyle={{
+                marginVertical: 10,
+                marginHorizontal: 8,
+            }}
         >
-            <Text>{format(date, 'd')}</Text>
-            <Text>{WEEK_DAY[date.getDay()]}</Text>
-        </AnimatedPressable>
+            <AnimatedPressable
+                style={[
+                    {
+                        width: 36,
+                        height: 51,
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderRadius: 18,
+                    },
+                    viewAnimatedStyle,
+                ]}
+                onPress={onPress}
+            >
+                <Text>{format(date, 'd')}</Text>
+                <Text>{WEEK_DAY[date.getDay()]}</Text>
+            </AnimatedPressable>
+        </Shadow>
     )
 }
 
