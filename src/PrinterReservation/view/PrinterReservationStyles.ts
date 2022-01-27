@@ -3,7 +3,7 @@ import styled from '@emotion/native'
 
 export const X = styled.TouchableOpacity({
     marginLeft: 38,
-    marginTop: 20,
+    marginTop: 12,
 })
 
 export const Title = styled.Text({
