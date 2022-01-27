@@ -96,8 +96,8 @@ export default function Posts() {
         return (
             <View
                 style={{
-                    //flex: 1을 없애고 <Post/>를 감싸고 있던 <View>에서 style 속성을 없애니 괜찮아졌다.
                     flex: 1,
+                    backgroundColor: 'white',
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}

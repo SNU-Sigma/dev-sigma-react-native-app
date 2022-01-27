@@ -88,6 +88,7 @@ export const PostAPI = {
             const { content } = params
             setTimeout(() => {
                 if (content.length >= 7) {
+                    console.log(content)
                     resolve()
                 } else {
                     reject(new Error('댓글은 7자 이상 작성해주세요.'))
