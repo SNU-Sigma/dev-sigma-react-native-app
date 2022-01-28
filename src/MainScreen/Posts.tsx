@@ -101,11 +101,13 @@ export default function Posts() {
     const [posts, setPosts] = useState<Array<Post>>([])
     const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
-        setIsLoading(true)
-        PostAPI.getPosts().then((POSTS) => {
-            setPosts(POSTS)
-            setIsLoading(false)
-        })
+        if (isFocused) {
+            setIsLoading(true)
+            PostAPI.getPosts().then((POSTS) => {
+                setPosts(POSTS)
+                setIsLoading(false)
+            })
+        }
     }, [isFocused])
     const navigation = useNavigation<any>()
     if (isLoading) return <Spinner isLoading={isLoading} />
