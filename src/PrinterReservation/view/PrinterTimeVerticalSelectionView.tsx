@@ -123,7 +123,7 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                             onPress={() => {
                                 console.log(item, 'printerOne')
                                 navigation.push('PrinterReservation', {
-                                    printerType: 'Cubicon 프린터',
+                                    printerId: 'printerOne',
                                     startTime: formatISO(item),
                                 })
                             }}
@@ -154,7 +154,7 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                             onPress={() => {
                                 console.log(item, 'printerTwo')
                                 navigation.push('PrinterReservation', {
-                                    printerType: 'Guider 2 프린터',
+                                    printerId: 'printerTwo',
                                     startTime: formatISO(item),
                                 })
                             }}
@@ -164,7 +164,7 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                 </View>
             )
         },
-        [reservations],
+        [navigation, reservations],
     )
 
     const viewabilityConfigCallbackPairs: Array<ViewabilityConfigCallbackPair> =
