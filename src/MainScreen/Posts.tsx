@@ -1,26 +1,23 @@
-import { View, Text, FlatList, Image } from 'react-native'
+import { FlatList, Image, Text, View } from 'react-native'
 import {
-    PostView,
-    PostAuthorImage,
     AdminImage,
-    ProfileView,
     ContentText,
-    MoreText,
     ImageView,
-    TitleText,
+    MoreText,
+    PostAuthorImage,
+    PostView,
     PostWriteTouchableOpacity,
+    ProfileView,
+    TitleText,
 } from './PostsStyles'
 import adminMark from '../assets/images/adminMark.png'
-// import sigmaProfilePicture from '../assets/images/sigmaProfile.png'
 import postWriteMark from '../assets/images/postWrite.png'
-import { useNavigation, useIsFocused } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { useEffect, useState } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../RootStackParamList'
 import { PostAPI } from '../service/PostAPI'
 import Spinner from '../common/view/Spinner'
-//import { SearchBar } from 'react-native-elements'
-//import { Searchbar } from 'react-native-paper'
 
 export type Post = {
     id: string
@@ -110,62 +107,60 @@ export default function Posts() {
         }
     }, [isFocused])
     const navigation = useNavigation<any>()
-    if (isLoading) return <Spinner isLoading={isLoading} />
-    if (posts)
-        return (
+    return (
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: 'white',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        >
+            <Spinner isLoading={isLoading} />
             <View
                 style={{
-                    flex: 1,
-                    backgroundColor: 'white',
+                    width: 334,
+                    height: 40,
+                    borderWidth: 1,
+                    top: 45,
+                    position: 'absolute',
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}
             >
-                <View
-                    style={{
-                        width: 334,
-                        height: 40,
-                        borderWidth: 1,
-                        top: 45,
-                        position: 'absolute',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Text>Search</Text>
-                </View>
-                <View
-                    style={{
-                        width: 334,
-                        height: 52,
-                        borderWidth: 1,
-                        top: 95,
-                        position: 'absolute',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Text>공지 3개</Text>
-                </View>
-                <FlatList
-                    style={{ marginTop: 160 }}
-                    ListHeaderComponent={ListHeader}
-                    data={posts}
-                    renderItem={(props) => <RenderItem {...props} />}
-                    keyExtractor={(item: Post) => item.id}
-                />
-                <PostWriteTouchableOpacity
-                    onPress={() => navigation.navigate('PostWrite')}
-                >
-                    <Image
-                        source={postWriteMark}
-                        style={{
-                            width: 50,
-                            height: 50,
-                        }}
-                    />
-                </PostWriteTouchableOpacity>
+                <Text>Search</Text>
             </View>
-        )
-    return null
+            <View
+                style={{
+                    width: 334,
+                    height: 52,
+                    borderWidth: 1,
+                    top: 95,
+                    position: 'absolute',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <Text>공지 3개</Text>
+            </View>
+            <FlatList
+                style={{ marginTop: 160 }}
+                ListHeaderComponent={ListHeader}
+                data={posts}
+                renderItem={(props) => <RenderItem {...props} />}
+                keyExtractor={(item: Post) => item.id}
+            />
+            <PostWriteTouchableOpacity
+                onPress={() => navigation.navigate('PostWrite')}
+            >
+                <Image
+                    source={postWriteMark}
+                    style={{
+                        width: 50,
+                        height: 50,
+                    }}
+                />
+            </PostWriteTouchableOpacity>
+        </View>
+    )
 }
