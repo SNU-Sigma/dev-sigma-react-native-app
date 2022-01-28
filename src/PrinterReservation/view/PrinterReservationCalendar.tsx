@@ -93,8 +93,6 @@ export default function PrinterReservationCalendar({
             .catch((e) => {
                 alert(e)
                 console.log(e)
-            })
-            .finally(() => {
                 setIsLoading(false)
             })
     }

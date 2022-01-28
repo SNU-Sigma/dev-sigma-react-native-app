@@ -11,9 +11,8 @@ import Spinner from '../../common/view/Spinner'
 import { useIsFocused } from '@react-navigation/native'
 
 export const PrinterReservationScreen = () => {
-    const { run, isLoading, data } = useAsync({
+    const { reload, isLoading, data } = useAsync({
         promiseFn: PrinterAPI.getReservations,
-        deferFn: PrinterAPI.getReservations,
     })
 
     const isFocused = useIsFocused()
@@ -30,9 +29,9 @@ export const PrinterReservationScreen = () => {
 
     useEffect(() => {
         if (isFocused) {
-            run()
+            reload()
         }
-    }, [isFocused, run])
+    }, [isFocused, reload])
 
     return (
         <Container>
