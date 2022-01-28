@@ -4,22 +4,19 @@ import * as style from './styles/PritnerInfoStyles'
 import { calculateDay } from './PrinterReservationCalendar'
 import { add } from 'date-fns'
 import PopUp from '../popup/PopUp'
+import { parseISO } from 'date-fns'
 
 export default function PrinterInfo({
-    Title,
-    Start,
-    End,
-    User,
+    navigation,
+    route,
 }: {
-    Title?: string
-    Start?: Date
-    End?: Date
-    User?: string
+    navigation: any
+    route: any
 }) {
-    const title = Title ? Title : '창의설계축전 준비'
-    const start = Start ? Start : new Date()
-    const end = End ? End : add(start, { hours: 1 })
-    const user = User ? User : '시그마멤버A'
+    const title = route.params.title
+    const start = parseISO(route.params.startTime)
+    const end = parseISO(route.params.endTime)
+    const user = route.params.username
 
     const startMonth = start.getMonth() + 1
     const startDate = start.getDate()
@@ -46,7 +43,7 @@ export default function PrinterInfo({
     return (
         <View>
             <PopUp visible={modalVisible} setVisible={setModalVisible} />
-            <style.X onPress={() => setModalVisible(true)}>
+            <style.X onPress={() => navigation.goBack()}>
                 <Image source={require('../../assets/image/Out.png')} />
             </style.X>
             <style.TitleInfo>{title}</style.TitleInfo>
@@ -58,7 +55,7 @@ export default function PrinterInfo({
                 <style.ModifyButton>
                     <Text>{'수정'}</Text>
                 </style.ModifyButton>
-                <style.RemoveButton>
+                <style.RemoveButton onPress={() => setModalVisible(true)}>
                     <Text>{'삭제'}</Text>
                 </style.RemoveButton>
             </View>

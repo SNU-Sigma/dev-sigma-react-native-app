@@ -105,6 +105,18 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                                 printerOneReservation.start,
                                 item,
                             )}
+                            onPress={() => {
+                                navigation.push('PrinterInfo', {
+                                    startTime: formatISO(
+                                        printerOneReservation.start,
+                                    ),
+                                    endTime: formatISO(
+                                        printerOneReservation.end,
+                                    ),
+                                    username: printerOneReservation.authorName,
+                                    title: printerOneReservation.title,
+                                })
+                            }}
                         />
                     ) : (
                         <EmptyTime
@@ -124,6 +136,18 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                                 printerTwoReservation.start,
                                 item,
                             )}
+                            onPress={() => {
+                                navigation.push('PrinterInfo', {
+                                    startTime: formatISO(
+                                        printerTwoReservation.start,
+                                    ),
+                                    endTime: formatISO(
+                                        printerTwoReservation.end,
+                                    ),
+                                    username: printerTwoReservation.authorName,
+                                    title: printerTwoReservation.title,
+                                })
+                            }}
                         />
                     ) : (
                         <EmptyTime

@@ -7,6 +7,7 @@ import { lightFormat } from 'date-fns'
 type Props = {
     isFirstSlot: boolean
     reservation: PrinterReservationPlan
+    onPress?: () => void
 }
 
 export const PrinterReservedTime = (props: Props) => {
@@ -20,7 +21,7 @@ export const PrinterReservedTime = (props: Props) => {
     const highlightColor: ColorValue = isMine ? '#FF7648' : '#939393'
 
     return (
-        <Container backgroundColor={backgroundColor}>
+        <Container onPress={props.onPress} backgroundColor={backgroundColor}>
             <View style={{ width: 3, backgroundColor: highlightColor }} />
             {isFirstSlot && (
                 <TextContainer>
