@@ -17,6 +17,7 @@ export default function PopUp({
             <Modal
                 isVisible={visible}
                 useNativeDriver={true}
+                onBackdropPress={() => setVisible(false)}
                 style={{
                     flex: 1,
                     justifyContent: 'center',

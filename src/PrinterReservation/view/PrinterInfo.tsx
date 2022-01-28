@@ -18,7 +18,7 @@ export default function PrinterInfo({
 }) {
     const title = Title ? Title : '창의설계축전 준비'
     const start = Start ? Start : new Date()
-    const end = End ? End : add(start, { hours: 7 })
+    const end = End ? End : add(start, { hours: 1 })
     const user = User ? User : '시그마멤버A'
 
     const startMonth = start.getMonth() + 1
