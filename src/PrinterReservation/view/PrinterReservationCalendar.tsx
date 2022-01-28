@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { View, Image, Text, FlatList, ScrollView } from 'react-native'
+import { FlatList, Image, Text, View } from 'react-native'
 import * as style from './styles/PrinterReservationStyles'
-import { add } from 'date-fns'
-import { ReserveAPI } from '../../service/ReserveAPI'
+import { add, parseISO } from 'date-fns'
 import PopUp from '../popup/PopUp'
-import { parseISO } from 'date-fns'
 import Spinner from '../../common/view/Spinner'
+import { PrinterAPI } from '../../service/PrinterAPI'
 
 export const calculateDay = (n: number) => {
     switch (n) {
@@ -81,11 +80,12 @@ export default function PrinterReservationCalendar({
     const [isLoading, setIsLoading] = useState(false)
     const onSave = () => {
         setIsLoading(true)
-        ReserveAPI.setReserve({
-            Title: title,
-            Start: Start,
-            End: End,
-            User: user,
+        PrinterAPI.postReservation({
+            title,
+            start: Start,
+            end: End,
+            authorName: user,
+            printerId: route.params.printerId,
         })
             .then(() => {
                 navigation.goBack()
@@ -93,109 +93,111 @@ export default function PrinterReservationCalendar({
             .catch((e) => {
                 alert(e)
                 console.log(e)
-            })
-            .finally(() => {
                 setIsLoading(false)
             })
     }
 
     return (
-        <View style={{ backgroundColor: 'white' }}>
-            <PopUp visible={modalVisible} setVisible={setModalVisible} />
-            <style.X onPress={onOutHandler}>
-                <Image source={require('../../assets/image/Out.png')} />
-            </style.X>
-            <style.Title>{'제목'}</style.Title>
-            <style.TitleInput
-                placeholder={'제목을 입력하세요...'}
-                placeholderTextColor={'rgba(189,189,189,1)'}
-                value={title}
-                onChangeText={setTitle}
-            />
-            <style.Boundary1 />
-            <style.TimeText>{'시간'}</style.TimeText>
-            <style.StartTimeText>{startTimeString}</style.StartTimeText>
-            <style.EndTimeText>{endTimeString}</style.EndTimeText>
-            <FlatList
-                style={{ marginTop: 14, marginLeft: 23 }}
-                horizontal={true}
-                data={list1}
-                renderItem={({ item }) => (
-                    <style.SelectedTimeText
-                        isSelected={item.focused}
-                        hitSlop={{ top: 1, bottom: 1, left: 1, right: 1 }}
-                        onPress={() => {
-                            setEnd(add(Start, { hours: item.id }))
-                            var list_1 = list1
-                            list_1.map((it) => {
-                                if (it.id === item.id) it.focused = true
-                                else it.focused = false
-                            })
-                            setList1(list_1)
-                            var list_2 = list2
-                            list_2.map((it) => {
-                                it.focused = false
-                            })
-                            setList2(list_2)
-                        }}
-                    >
-                        <Text>{`${item.id}시간`}</Text>
-                    </style.SelectedTimeText>
-                )}
-                keyExtractor={(item) => item.id.toString()}
-            />
-            <FlatList
-                style={{ marginTop: 14, marginLeft: 23 }}
-                horizontal={true}
-                data={list2}
-                renderItem={({ item }) => (
-                    <style.SelectedTimeText
-                        isSelected={item.focused}
-                        hitSlop={{ top: 1, bottom: 1, left: 1, right: 1 }}
-                        onPress={() => {
-                            setEnd(add(Start, { hours: item.id }))
-                            var list_2 = list2
-                            list_2.map((it) => {
-                                if (it.id === item.id) it.focused = true
-                                else it.focused = false
-                            })
-                            setList2(list_2)
-                            var list_1 = list1
-                            list_1.map((it) => {
-                                it.focused = false
-                            })
-                            setList1(list_1)
-                        }}
-                    >
-                        <Text>{`${item.id}시간`}</Text>
-                    </style.SelectedTimeText>
-                )}
-                keyExtractor={(item) => item.id.toString()}
-            />
-            <style.Boundary2 />
-            <style.UserText>{'사용자'}</style.UserText>
-            <style.TitleInput
-                placeholder={'이름을 입력하세요...'}
-                placeholderTextColor={'rgba(189,189,189,1)'}
-                value={user}
-                onChangeText={setUser}
-            />
-            <style.CautionText>{'프린터 사용시 주의사항'}</style.CautionText>
-            <FlatList
-                style={{ marginTop: 20, marginLeft: 28 }}
-                data={cautions}
-                renderItem={({ item }) => <Text>{item}</Text>}
-                keyExtractor={(item) => item}
-            />
-            <style.SaveButton
-                onPress={onSave}
-                disabled={
-                    !(title !== '' && user !== '' && startHour !== endHour)
-                }
-            >
-                <Text>{'저장'}</Text>
-            </style.SaveButton>
-            <Spinner isLoading={isLoading} />
+        <View style={{ backgroundColor: 'white', flex: 1 }}>
+            <View>
+                <PopUp visible={modalVisible} setVisible={setModalVisible} />
+                <style.X onPress={onOutHandler}>
+                    <Image source={require('../../assets/image/Out.png')} />
+                </style.X>
+                <style.Title>{'제목'}</style.Title>
+                <style.TitleInput
+                    placeholder={'제목을 입력하세요...'}
+                    placeholderTextColor={'rgba(189,189,189,1)'}
+                    value={title}
+                    onChangeText={setTitle}
+                />
+                <style.Boundary1 />
+                <style.TimeText>{'시간'}</style.TimeText>
+                <style.StartTimeText>{startTimeString}</style.StartTimeText>
+                <style.EndTimeText>{endTimeString}</style.EndTimeText>
+                <FlatList
+                    style={{ marginTop: 14, marginLeft: 23 }}
+                    horizontal={true}
+                    data={list1}
+                    renderItem={({ item }) => (
+                        <style.SelectedTimeText
+                            isSelected={item.focused}
+                            hitSlop={{ top: 1, bottom: 1, left: 1, right: 1 }}
+                            onPress={() => {
+                                setEnd(add(Start, { hours: item.id }))
+                                var list_1 = list1
+                                list_1.map((it) => {
+                                    if (it.id === item.id) it.focused = true
+                                    else it.focused = false
+                                })
+                                setList1(list_1)
+                                var list_2 = list2
+                                list_2.map((it) => {
+                                    it.focused = false
+                                })
+                                setList2(list_2)
+                            }}
+                        >
+                            <Text>{`${item.id}시간`}</Text>
+                        </style.SelectedTimeText>
+                    )}
+                    keyExtractor={(item) => item.id.toString()}
+                />
+                <FlatList
+                    style={{ marginTop: 14, marginLeft: 23 }}
+                    horizontal={true}
+                    data={list2}
+                    renderItem={({ item }) => (
+                        <style.SelectedTimeText
+                            isSelected={item.focused}
+                            hitSlop={{ top: 1, bottom: 1, left: 1, right: 1 }}
+                            onPress={() => {
+                                setEnd(add(Start, { hours: item.id }))
+                                var list_2 = list2
+                                list_2.map((it) => {
+                                    if (it.id === item.id) it.focused = true
+                                    else it.focused = false
+                                })
+                                setList2(list_2)
+                                var list_1 = list1
+                                list_1.map((it) => {
+                                    it.focused = false
+                                })
+                                setList1(list_1)
+                            }}
+                        >
+                            <Text>{`${item.id}시간`}</Text>
+                        </style.SelectedTimeText>
+                    )}
+                    keyExtractor={(item) => item.id.toString()}
+                />
+                <style.Boundary2 />
+                <style.UserText>{'사용자'}</style.UserText>
+                <style.TitleInput
+                    placeholder={'이름을 입력하세요...'}
+                    placeholderTextColor={'rgba(189,189,189,1)'}
+                    value={user}
+                    onChangeText={setUser}
+                />
+                <style.CautionText>
+                    {'프린터 사용시 주의사항'}
+                </style.CautionText>
+                <FlatList
+                    style={{ marginTop: 20, marginLeft: 28 }}
+                    data={cautions}
+                    renderItem={({ item }) => <Text>{item}</Text>}
+                    keyExtractor={(item) => item}
+                />
+                <style.SaveButton
+                    onPress={onSave}
+                    disabled={
+                        !(title !== '' && user !== '' && startHour !== endHour)
+                    }
+                >
+                    <Text>{'저장'}</Text>
+                </style.SaveButton>
+                <Spinner isLoading={isLoading} />
+            </View>
         </View>
     )
 }

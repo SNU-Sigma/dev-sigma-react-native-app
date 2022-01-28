@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { LoginAPI } from './LoginAPI'
 
 export const sigmaAxios = axios.create({
-    transformRequest: (data) => {
-        return {
-            ...data,
-            user: LoginAPI.getLoginCredential(),
-        }
+    baseURL: 'https://sigma-service.herokuapp.com/',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    validateStatus: (statusCode) => {
+        return statusCode < 400
     },
 })
