@@ -9,10 +9,9 @@ export const TitleText = styled.Text({
 })
 
 export const PostView = styled.View({
-    //width: 335,
-    //height: 300,
     marginHorizontal: 24,
     marginBottom: 16,
+    paddingVertical: 12,
     paddingHorizontal: 20,
     backgroundColor: '#FFFFFF',
     borderRadius: 24,
@@ -29,12 +28,11 @@ export const PostView = styled.View({
 
 export const ProfileView = styled.View({
     height: 42,
-    marginTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
 })
 
-export const ProfileImage = styled.Image({
+export const PostAuthorImage = styled.Image({
     width: 42,
     height: 42,
     borderRadius: 21,
@@ -65,8 +63,16 @@ export const MoreText = styled.Text({
 })
 
 export const ImageView = styled.View({
-    height: 156,
+    height: 140,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+})
+
+export const PostWriteTouchableOpacity = styled.TouchableOpacity({
+    width: 50,
+    height: 50,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
 })

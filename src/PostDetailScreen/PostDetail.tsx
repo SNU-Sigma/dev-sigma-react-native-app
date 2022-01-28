@@ -1,141 +1,187 @@
-import { View, Text, FlatList, Image } from 'react-native'
 import {
-    ProfileImage,
+    View,
+    Text,
+    FlatList,
+    Image,
+    ScrollView,
+    TextInput,
+    TouchableOpacity,
+    Platform,
+    Alert,
+} from 'react-native'
+import {
+    PostAuthorImage,
     ProfileView,
     ContentText,
 } from '../MainScreen/PostsStyles'
 import {
     AdminImage,
-    PostDetailScrollView,
+    PostDetailView,
     CommentView,
+    CommentAuthorImage,
+    CommentInputView,
 } from './PostDetailStyles'
-import adminMark from '../assets/images/adminMark.png'
 import { Comment } from '../MainScreen/Posts'
-
-const src =
-    'https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=620&quality=85&auto=format&fit=max&s=21718fb1379918410ea10054db89f665'
+import adminMark from '../assets/images/adminMark.png'
+import commentSubmitMark from '../assets/images/commentSubmit.png'
+//import sigmaProfilePicture from '../assets/images/sigmaProfile.png'
+import { useState } from 'react'
+import { PostAPI } from '../service/PostAPI'
+import { Post } from '../MainScreen/Posts'
 
 const renderPhotoItem = ({ item }: { item: string }) => {
     return (
         <Image
             source={{ uri: item }}
-            style={{ width: 138, height: 132, margin: 5 }}
+            style={{ width: 140, height: 132, margin: 4 }}
         />
     )
 }
 
-const renderCommentItem = ({ item }: { item: Comment }) => {
+function CommentInput({
+    item,
+    setComments,
+}: {
+    item: Post
+    setComments: (comments: Array<Comment>) => void
+}) {
+    const [commentContent, setCommentContent] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const handleCommentSubmit = () => {
+        setIsLoading(true)
+
+        PostAPI.postComment({
+            postId: item.id,
+            content: commentContent,
+        })
+            .then(() => {
+                setCommentContent('')
+                PostAPI.getPost({ id: item.id }).then(({ comments }) => {
+                    setComments(comments)
+                })
+            })
+            .catch((error) => {
+                if (Platform.OS === 'web') {
+                    alert(error.message)
+                } else {
+                    Alert.alert(error.message)
+                }
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+    }
     return (
-        <CommentView>
-            <ProfileImage source={{ uri: src }} />
-            <View style={{ flex: 1 }}>
-                {/* 2줄 이상의 comment 를 위한 flex: 1 */}
-                <Text style={{ fontSize: 14, paddingLeft: 12 }}>
-                    {item.authorName}
-                </Text>
-                <Text style={{ fontSize: 10, paddingLeft: 12 }}>
-                    {item.content}
-                </Text>
-                <Text
-                    style={{
-                        fontSize: 8,
-                        paddingLeft: 12,
-                        color: 'grey',
-                    }}
-                >
-                    {item.date}
-                </Text>
-                {/*comment 에는 isAdmin 이 없다.. ㅠㅠ*/}
-            </View>
-        </CommentView>
+        <CommentInputView>
+            <CommentAuthorImage source={{ uri: item.profilePicture }} />
+            <TextInput
+                style={{ marginLeft: 8, flex: 1 }}
+                placeholder='댓글을 입력하세요.'
+                placeholderTextColor={'grey'}
+                value={commentContent}
+                onChangeText={setCommentContent}
+            />
+            <TouchableOpacity
+                onPress={handleCommentSubmit}
+                disabled={isLoading}
+            >
+                <Image
+                    source={commentSubmitMark}
+                    style={{ width: 30, height: 30 }}
+                />
+            </TouchableOpacity>
+        </CommentInputView>
     )
 }
 
 export default function PostDetail({ route }: { route: any }) {
     const { post: item } = route.params
+    const [comments, setComments] = useState<Array<Comment>>(item.comments)
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <PostDetailScrollView>
-                <ProfileView>
-                    <ProfileImage source={{ uri: src }} />
-                    <View>
-                        <Text style={{ fontSize: 14, paddingLeft: 12 }}>
-                            {item.authorName}
-                        </Text>
-                        <Text
-                            style={{
-                                fontSize: 8,
-                                paddingLeft: 12,
-                                color: 'grey',
-                            }}
-                        >
-                            {item.date}
-                        </Text>
-                    </View>
-                </ProfileView>
-                {item.isAdmin && <AdminImage source={adminMark} />}
-                <ContentText>{item.content}</ContentText>
-                {item.photos.length > 0 && (
-                    <FlatList
-                        data={item.photos}
-                        horizontal={true}
-                        renderItem={renderPhotoItem}
-                        // keyExtractor 를 어떻게 해야 할까요..?
-                        keyExtractor={(item: string) => item}
-                        showsHorizontalScrollIndicator={false}
-                    />
-                )}
-                {item.comments.length > 0 && (
-                    <View style={{ marginBottom: 20 }}>
-                        <View
-                            style={{
-                                borderBottomColor: '#C4C4C4',
-                                borderBottomWidth: 1,
-                            }}
+            <ScrollView>
+                <PostDetailView>
+                    <ProfileView>
+                        <PostAuthorImage
+                            source={{ uri: item.profilePicture }}
                         />
-                        {/*<FlatList*/}
-                        {/*    data={item.comments}*/}
-                        {/*    renderItem={renderCommentItem}*/}
-                        {/*    keyExtractor={(item: Comment) => item.id}*/}
-                        {/*    showsVerticalScrollIndicator={false}*/}
-                        {/*/>*/}
-                        {item.comments.map((comment: Comment) => (
-                            <CommentView key={comment.id}>
-                                <ProfileImage source={{ uri: src }} />
-                                <View style={{ flex: 1 }}>
-                                    {/* 2줄 이상의 comment 를 위한 flex: 1 */}
-                                    <Text
-                                        style={{
-                                            fontSize: 14,
-                                            paddingLeft: 12,
-                                        }}
-                                    >
-                                        {comment.authorName}
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 10,
-                                            paddingLeft: 12,
-                                        }}
-                                    >
-                                        {comment.content}
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 8,
-                                            paddingLeft: 12,
-                                            color: 'grey',
-                                        }}
-                                    >
-                                        {comment.date}
-                                    </Text>
-                                    {/*comment 에는 isAdmin 이 없다.. ㅠㅠ*/}
-                                </View>
-                            </CommentView>
-                        ))}
-                    </View>
-                )}
-            </PostDetailScrollView>
+                        <View>
+                            <Text style={{ fontSize: 14, paddingLeft: 12 }}>
+                                {item.authorName}
+                            </Text>
+                            <Text
+                                style={{
+                                    fontSize: 8,
+                                    paddingLeft: 12,
+                                    color: 'grey',
+                                }}
+                            >
+                                {item.date}
+                            </Text>
+                        </View>
+                    </ProfileView>
+                    {item.isAdmin && <AdminImage source={adminMark} />}
+                    <ContentText>{item.content}</ContentText>
+                    {item.photos.length > 0 && (
+                        <FlatList
+                            data={item.photos}
+                            horizontal={true}
+                            renderItem={renderPhotoItem}
+                            keyExtractor={(item: string) => item}
+                            // keyExtractor 를 어떻게 해야 할까요..?
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    )}
+                    {comments.length > 0 && (
+                        <View>
+                            <View
+                                style={{
+                                    borderBottomColor: '#C4C4C4',
+                                    borderBottomWidth: 1,
+                                    marginTop: 4,
+                                }}
+                            />
+
+                            {comments.map((comment: Comment) => (
+                                <CommentView key={comment.id}>
+                                    <CommentAuthorImage
+                                        source={{ uri: comment.profilePicture }}
+                                    />
+                                    <View style={{ flex: 1 }}>
+                                        {/* 2줄 이상의 comment 를 위한 flex: 1 */}
+                                        <Text
+                                            style={{
+                                                fontSize: 14,
+                                                paddingLeft: 8,
+                                            }}
+                                        >
+                                            {comment.authorName}
+                                        </Text>
+                                        <Text
+                                            style={{
+                                                fontSize: 10,
+                                                paddingLeft: 8,
+                                            }}
+                                        >
+                                            {comment.content}
+                                        </Text>
+                                        <Text
+                                            style={{
+                                                fontSize: 8,
+                                                paddingLeft: 8,
+                                                color: 'grey',
+                                            }}
+                                        >
+                                            {comment.date}
+                                        </Text>
+                                    </View>
+                                </CommentView>
+                            ))}
+                        </View>
+                    )}
+                </PostDetailView>
+            </ScrollView>
+            <CommentInput item={item} setComments={setComments} />
         </View>
     )
 }
