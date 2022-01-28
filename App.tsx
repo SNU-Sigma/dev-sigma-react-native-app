@@ -1,28 +1,21 @@
-import * as React from 'react'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LogIn from './src/LogInScreen/LogIn'
 import Main from './src/MainScreen/Main'
 import PostDetail from './src/PostDetailScreen/PostDetail'
 import PostWrite from './src/PostWriteScreen/PostWrite'
 
-type Props = { navigation: any }
-
-function LogInScreen({ navigation }: Props) {
-    return <LogIn onPress={() => navigation.navigate('Main')} />
-}
-
 const Stack = createNativeStackNavigator()
 
-function App() {
+export default function App() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShadowVisible: false }}>
                     <Stack.Screen
                         name='LogIn'
-                        component={LogInScreen}
+                        component={LogIn}
                         options={{ title: 'Overview', headerShown: false }}
                     />
                     <Stack.Screen
@@ -56,5 +49,3 @@ function App() {
         </GestureHandlerRootView>
     )
 }
-
-export default App
