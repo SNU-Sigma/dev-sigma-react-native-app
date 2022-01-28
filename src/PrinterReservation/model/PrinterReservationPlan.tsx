@@ -1,6 +1,8 @@
 export type PrinterReservationPlan = {
     id: string
-    printerId: string
+    title: string
+    authorName: string
+    printerId: 'printerOne' | 'printerTwo'
     start: Date
     end: Date
 }

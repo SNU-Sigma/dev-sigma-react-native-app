@@ -18,11 +18,17 @@ import {
     getTime,
     isBefore,
     isSameDay,
+    isSameHour,
+    isWithinInterval,
     parseISO,
     startOfDay,
+    subMinutes,
 } from 'date-fns'
 import { formatISO } from 'date-fns/fp'
 import { debounce } from 'lodash'
+import Spacer from '../../common/view/Spacer'
+import styled from '@emotion/native'
+import { PrinterReservedTime } from './PrinterReservedTime'
 
 type Props = {
     selectedDateTime: Date
@@ -33,7 +39,7 @@ type Props = {
 const ITEM_HEIGHT = 72
 
 export const PrinterTimeVerticalSelectionView = (props: Props) => {
-    const { selectedDateTime, onSelectedDateTimeChange } = props
+    const { selectedDateTime, onSelectedDateTimeChange, reservations } = props
 
     const currentlyViewableItemsRef = useRef<Array<ViewToken>>([])
 
@@ -48,50 +54,75 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
         })
     }, [startDateTimeStamp])
 
-    const renderItem: ListRenderItem<Date> = useCallback(({ item }) => {
-        return (
-            <View
-                style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    backgroundColor: 'white',
-                    justifyContent: 'flex-end',
-                    height: ITEM_HEIGHT,
-                }}
-            >
+    const renderItem: ListRenderItem<Date> = useCallback(
+        ({ item }) => {
+            const printerOneReservation = reservations
+                .filter((reservation) => reservation.printerId === 'printerOne')
+                .find((reservation) => {
+                    const { start, end } = reservation
+                    return isWithinInterval(item, {
+                        start,
+                        end: subMinutes(end, 1),
+                    })
+                })
+
+            const printerTwoReservation = reservations
+                .filter((reservation) => reservation.printerId === 'printerTwo')
+                .find((reservation) => {
+                    const { start, end } = reservation
+                    return isWithinInterval(item, {
+                        start,
+                        end: subMinutes(end, 1),
+                    })
+                })
+
+            return (
                 <View
                     style={{
-                        flex: 1,
-                        alignSelf: 'flex-start',
+                        flexDirection: 'row',
                         alignItems: 'center',
+                        backgroundColor: 'white',
+                        justifyContent: 'flex-end',
+                        height: ITEM_HEIGHT,
                     }}
                 >
-                    <Text>{format(item, 'h aa')}</Text>
+                    <View
+                        style={{
+                            flex: 1,
+                            alignSelf: 'flex-start',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text>{format(item, 'h aa')}</Text>
+                    </View>
+                    {printerOneReservation !== undefined ? (
+                        <PrinterReservedTime
+                            reservation={printerOneReservation}
+                            isFirstSlot={isSameHour(
+                                printerOneReservation.start,
+                                item,
+                            )}
+                        />
+                    ) : (
+                        <EmptyTime />
+                    )}
+                    {printerTwoReservation !== undefined ? (
+                        <PrinterReservedTime
+                            reservation={printerTwoReservation}
+                            isFirstSlot={isSameHour(
+                                printerTwoReservation.start,
+                                item,
+                            )}
+                        />
+                    ) : (
+                        <EmptyTime />
+                    )}
+                    <Spacer width={10} />
                 </View>
-                <View
-                    style={{
-                        height: '100%',
-                        width: 150,
-                        borderColor: '#E0E0E0',
-                        borderTopWidth: 1,
-                        borderRightWidth: 1,
-                        backgroundColor: '#FAFAFA',
-                    }}
-                />
-                <View
-                    style={{
-                        height: '100%',
-                        width: 150,
-                        borderColor: '#E0E0E0',
-                        borderTopWidth: 1,
-                        borderRightWidth: 1,
-                        backgroundColor: '#FAFAFA',
-                        marginRight: 10,
-                    }}
-                />
-            </View>
-        )
-    }, [])
+            )
+        },
+        [reservations],
+    )
 
     const viewabilityConfigCallbackPairs: Array<ViewabilityConfigCallbackPair> =
         useMemo(
@@ -181,3 +212,12 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
         />
     )
 }
+
+const EmptyTime = styled.View({
+    height: '100%',
+    width: 150,
+    borderColor: '#E0E0E0',
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    backgroundColor: '#FAFAFA',
+})

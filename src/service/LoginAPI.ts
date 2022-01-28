@@ -2,6 +2,7 @@ import { LoginCredential } from '../common/model/LoginCredential'
 
 export const LoginAPI = (() => {
     let loginCredential: LoginCredential | undefined
+    let username: string | undefined
 
     const login = async (info: LoginCredential) => {
         // TODO: 추후 실제 API 연동 필요
@@ -10,6 +11,7 @@ export const LoginAPI = (() => {
                 if (info.email === 'sigma' && info.password === '1234') {
                     resolve()
                     loginCredential = info
+                    username = '테스트_유저네임'
                 }
                 reject('올바르지 않은 계정 정보입니다.')
             }, 1000)
@@ -20,8 +22,13 @@ export const LoginAPI = (() => {
         return loginCredential
     }
 
+    const getUserName = () => {
+        return username
+    }
+
     return {
         login,
         getLoginCredential,
+        getUserName,
     }
 })()
