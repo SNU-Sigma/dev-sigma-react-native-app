@@ -12,6 +12,7 @@ export default function PopUp({
     visible: boolean
     setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }): React.ReactElement {
+    const navigation = useNavigation<any>()
     return (
         <SafeAreaView>
             <Modal
@@ -32,7 +33,7 @@ export default function PopUp({
                     <style.HorizontalLine />
                     <style.ModalButton
                         onPress={() => {
-                            //navigation.goBack()
+                            navigation.goBack()
                             setVisible(false)
                         }}
                     >

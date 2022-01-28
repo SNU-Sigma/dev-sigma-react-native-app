@@ -1,4 +1,5 @@
 import { PrinterReservationPlan } from '../model/PrinterReservationPlan'
+import { useNavigation } from '@react-navigation/native'
 import {
     FlatList,
     ListRenderItem,
@@ -39,6 +40,8 @@ type Props = {
 const ITEM_HEIGHT = 72
 
 export const PrinterTimeVerticalSelectionView = (props: Props) => {
+    const navigation = useNavigation<any>()
+
     const { selectedDateTime, onSelectedDateTimeChange, reservations } = props
 
     const currentlyViewableItemsRef = useRef<Array<ViewToken>>([])
@@ -107,6 +110,10 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                         <EmptyTime
                             onPress={() => {
                                 console.log(item, 'printerOne')
+                                navigation.push('PrinterReservation', {
+                                    printerType: 'Cubicon 프린터',
+                                    startTime: formatISO(item),
+                                })
                             }}
                         />
                     )}
@@ -122,6 +129,10 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                         <EmptyTime
                             onPress={() => {
                                 console.log(item, 'printerTwo')
+                                navigation.push('PrinterReservation', {
+                                    printerType: 'Guider 2 프린터',
+                                    startTime: formatISO(item),
+                                })
                             }}
                         />
                     )}

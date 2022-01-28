@@ -8,18 +8,6 @@ import PostWrite from './src/PostWriteScreen/PostWrite'
 import PrinterReservationCalendar from './src/PrinterReservation/view/PrinterReservationCalendar'
 import PrinterInfo from './src/PrinterReservation/view/PrinterInfo'
 
-export default function App() {
-    //return <PrinterReservationCalendar />
-    return <PrinterInfo />
-}
-
-/*
-type Props = { navigation: any }
-
-function LogInScreen({ navigation }: Props) {
-    return <LogIn onPress={() => navigation.navigate('Main')} />
-}
-
 const Stack = createNativeStackNavigator()
 
 export default function App() {
@@ -58,11 +46,18 @@ export default function App() {
                             },
                         }}
                     />
+                    <Stack.Screen
+                        name='PrinterReservation'
+                        component={PrinterReservationCalendar}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='PrinterInfo'
+                        component={PrinterInfo}
+                        options={{ headerShown: false }}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </GestureHandlerRootView>
     )
 }
-
-export default App
-*/

@@ -4,6 +4,7 @@ import * as style from './styles/PrinterReservationStyles'
 import { add } from 'date-fns'
 import { ReserveAPI } from '../../service/ReserveAPI'
 import PopUp from '../popup/PopUp'
+import { parseISO } from 'date-fns'
 
 export const calculateDay = (n: number) => {
     switch (n) {
@@ -34,8 +35,7 @@ export default function PrinterReservationCalendar({
     const [modalVisible, setModalVisible] = useState(false)
     const onOutHandler = () => setModalVisible(true)
 
-    //const data: Date = route.params.startDate
-    const Start = new Date()
+    const Start: Date = parseISO(route.params.startTime)
     const startMonth = Start.getMonth() + 1
     const startDate = Start.getDate()
     const startDay = calculateDay(Start.getDay())
@@ -97,7 +97,7 @@ export default function PrinterReservationCalendar({
     }
 
     return (
-        <View>
+        <View style={{ backgroundColor: 'white' }}>
             <PopUp visible={modalVisible} setVisible={setModalVisible} />
             <style.X onPress={onOutHandler}>
                 <Image source={require('../../assets/image/Out.png')} />
