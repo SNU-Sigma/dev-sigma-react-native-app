@@ -1,23 +1,27 @@
 import styled from '@emotion/native'
 import { PrinterReservationPlan } from '../model/PrinterReservationPlan'
 import { LoginAPI } from '../../service/LoginAPI'
-import { ColorValue } from 'react-native'
+import { ColorValue, View } from 'react-native'
 import { lightFormat } from 'date-fns'
 
 type Props = {
-    isFirstSlot?: boolean
+    isFirstSlot: boolean
     reservation: PrinterReservationPlan
 }
 
 export const PrinterReservedTime = (props: Props) => {
-    const { isFirstSlot = false, reservation } = props
+    const { reservation, isFirstSlot } = props
 
     const { title, authorName, start, end } = reservation
 
     const isMine = reservation.authorName === LoginAPI.getUserName()
 
+    const backgroundColor: ColorValue = isMine ? '#DF74384D' : '#C1C1C199'
+    const highlightColor: ColorValue = isMine ? '#FF7648' : '#939393'
+
     return (
-        <Container backgroundColor={isMine ? '#DF74384D' : '#C1C1C199'}>
+        <Container backgroundColor={backgroundColor}>
+            <View style={{ width: 3, backgroundColor: highlightColor }} />
             {isFirstSlot && (
                 <TextContainer>
                     <Title>{title}</Title>
@@ -32,10 +36,13 @@ export const PrinterReservedTime = (props: Props) => {
     )
 }
 
-const Container = styled.View<{ backgroundColor: ColorValue }>((props) => ({
+const Container = styled.View<{
+    backgroundColor: ColorValue
+}>((props) => ({
     height: '100%',
     width: 150,
     backgroundColor: props.backgroundColor,
+    flexDirection: 'row',
 }))
 
 const TextContainer = styled.View({
