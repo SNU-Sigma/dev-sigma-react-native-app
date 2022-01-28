@@ -47,6 +47,6 @@ export const PrinterAPI = {
             startTime: lightFormat(start, 'yyyy-MM-dd HH:mm:ss'),
             endTime: lightFormat(end, 'yyyy-MM-dd HH:mm:ss'),
         }
-        return sigmaAxios.post('/printer/', data)
+        return sigmaAxios.post('/printer/', JSON.stringify(data))
     },
 }
