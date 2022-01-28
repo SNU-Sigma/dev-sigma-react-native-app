@@ -1,4 +1,5 @@
 import { PrinterReservationPlan } from '../model/PrinterReservationPlan'
+import { useNavigation } from '@react-navigation/native'
 import {
     FlatList,
     ListRenderItem,
@@ -39,6 +40,8 @@ type Props = {
 const ITEM_HEIGHT = 72
 
 export const PrinterTimeVerticalSelectionView = (props: Props) => {
+    const navigation = useNavigation<any>()
+
     const { selectedDateTime, onSelectedDateTimeChange, reservations } = props
 
     const currentlyViewableItemsRef = useRef<Array<ViewToken>>([])
@@ -102,11 +105,27 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                                 printerOneReservation.start,
                                 item,
                             )}
+                            onPress={() => {
+                                navigation.push('PrinterInfo', {
+                                    startTime: formatISO(
+                                        printerOneReservation.start,
+                                    ),
+                                    endTime: formatISO(
+                                        printerOneReservation.end,
+                                    ),
+                                    username: printerOneReservation.authorName,
+                                    title: printerOneReservation.title,
+                                })
+                            }}
                         />
                     ) : (
                         <EmptyTime
                             onPress={() => {
                                 console.log(item, 'printerOne')
+                                navigation.push('PrinterReservation', {
+                                    printerType: 'Cubicon 프린터',
+                                    startTime: formatISO(item),
+                                })
                             }}
                         />
                     )}
@@ -117,11 +136,27 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                                 printerTwoReservation.start,
                                 item,
                             )}
+                            onPress={() => {
+                                navigation.push('PrinterInfo', {
+                                    startTime: formatISO(
+                                        printerTwoReservation.start,
+                                    ),
+                                    endTime: formatISO(
+                                        printerTwoReservation.end,
+                                    ),
+                                    username: printerTwoReservation.authorName,
+                                    title: printerTwoReservation.title,
+                                })
+                            }}
                         />
                     ) : (
                         <EmptyTime
                             onPress={() => {
                                 console.log(item, 'printerTwo')
+                                navigation.push('PrinterReservation', {
+                                    printerType: 'Guider 2 프린터',
+                                    startTime: formatISO(item),
+                                })
                             }}
                         />
                     )}

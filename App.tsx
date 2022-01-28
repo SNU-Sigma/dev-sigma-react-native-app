@@ -5,6 +5,8 @@ import LogIn from './src/LogInScreen/LogIn'
 import Main from './src/MainScreen/Main'
 import PostDetail from './src/PostDetailScreen/PostDetail'
 import PostWrite from './src/PostWriteScreen/PostWrite'
+import PrinterReservationCalendar from './src/PrinterReservation/view/PrinterReservationCalendar'
+import PrinterInfo from './src/PrinterReservation/view/PrinterInfo'
 
 const Stack = createNativeStackNavigator()
 
@@ -43,6 +45,16 @@ export default function App() {
                                 backgroundColor: '#FAFF02',
                             },
                         }}
+                    />
+                    <Stack.Screen
+                        name='PrinterReservation'
+                        component={PrinterReservationCalendar}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='PrinterInfo'
+                        component={PrinterInfo}
+                        options={{ headerShown: false }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
