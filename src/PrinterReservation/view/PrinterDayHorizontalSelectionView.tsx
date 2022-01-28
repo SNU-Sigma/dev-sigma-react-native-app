@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { Dimensions } from 'react-native'
+import { Dimensions, Image, Pressable, StatusBar } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel'
 import {
     CarouselRenderItem,
@@ -65,6 +65,28 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
         [handleSelectedChange, startDateTimeStamp],
     )
 
+    const handleLeftArrowPress = useCallback(() => {
+        const currentIndex = carouselRef.current?.getCurrentIndex()
+        if (currentIndex === undefined || currentIndex - 7 < 0) {
+            return
+        }
+        carouselRef.current?.scrollTo({
+            count: -7,
+            animated: true,
+        })
+    }, [])
+
+    const handleRightArrowPress = useCallback(() => {
+        const currentIndex = carouselRef.current?.getCurrentIndex()
+        if (currentIndex === undefined || currentIndex + 7 >= data.length) {
+            return
+        }
+        carouselRef.current?.scrollTo({
+            count: 7,
+            animated: true,
+        })
+    }, [data.length])
+
     const renderItem: CarouselRenderItem<Date> = useCallback((itemInfo) => {
         const { item, animationValue } = itemInfo
 
@@ -122,11 +144,42 @@ export const PrinterDayHorizontalSelectionView = (props: Props) => {
 
     return (
         <Container>
+            <StatusBar backgroundColor='#C1C1C1' />
             <Spacer height={10} />
             <Title>SIGMA 3D PRINTER</Title>
             <GeneralDate>{generalDate}</GeneralDate>
             <Spacer height={4} />
-            {carousel}
+            <HStack>
+                <Pressable onPress={handleLeftArrowPress}>
+                    <Image
+                        source={require('../../assets/images/arrowHead.png')}
+                        style={{ width: 24, height: 24 }}
+                    />
+                </Pressable>
+                {carousel}
+                <Pressable onPress={handleRightArrowPress}>
+                    <Image
+                        source={require('../../assets/images/arrowHead.png')}
+                        style={{
+                            transform: [{ scaleX: -1 }],
+                            width: 24,
+                            height: 24,
+                        }}
+                    />
+                </Pressable>
+            </HStack>
+            <HeaderContainer>
+                <Header style={{ flex: 1 }}>Time</Header>
+                <Header style={{ width: 150 }}>Cubicon 프린터</Header>
+                <Header
+                    style={{
+                        width: 150,
+                        marginRight: 10,
+                    }}
+                >
+                    Guider 2 프린터
+                </Header>
+            </HeaderContainer>
         </Container>
     )
 }
@@ -148,4 +201,24 @@ const GeneralDate = styled.Text({
     fontSize: 13,
     lineHeight: 15,
     marginLeft: 20,
+})
+
+const HeaderContainer = styled.View({
+    backgroundColor: '#C1C1C1',
+    paddingVertical: 5,
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+})
+
+const Header = styled.Text({
+    fontSize: 13,
+    lineHeight: 15,
+    textAlign: 'center',
+})
+
+const HStack = styled.View({
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
 })
