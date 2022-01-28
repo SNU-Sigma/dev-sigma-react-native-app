@@ -5,6 +5,7 @@ import { add } from 'date-fns'
 import { ReserveAPI } from '../../service/ReserveAPI'
 import PopUp from '../popup/PopUp'
 import { parseISO } from 'date-fns'
+import Spinner from '../../common/view/Spinner'
 
 export const calculateDay = (n: number) => {
     switch (n) {
@@ -77,7 +78,9 @@ export default function PrinterReservationCalendar({
         '3. 프린터 사용시에는 동아리 방의 창문을 열어서 환기를 부탁드립니다.',
     ]
 
+    const [isLoading, setIsLoading] = useState(false)
     const onSave = () => {
+        setIsLoading(true)
         ReserveAPI.setReserve({
             Title: title,
             Start: Start,
@@ -85,14 +88,14 @@ export default function PrinterReservationCalendar({
             User: user,
         })
             .then(() => {
-                alert('success!')
+                navigation.goBack()
             })
             .catch((e) => {
                 alert(e)
                 console.log(e)
             })
             .finally(() => {
-                console.log('finally!')
+                setIsLoading(false)
             })
     }
 
@@ -187,6 +190,7 @@ export default function PrinterReservationCalendar({
             <style.SaveButton onPress={onSave}>
                 <Text>{'저장'}</Text>
             </style.SaveButton>
+            <Spinner isLoading={isLoading} />
         </View>
     )
 }
