@@ -187,7 +187,12 @@ export default function PrinterReservationCalendar({
                 renderItem={({ item }) => <Text>{item}</Text>}
                 keyExtractor={(item) => item}
             />
-            <style.SaveButton onPress={onSave}>
+            <style.SaveButton
+                onPress={onSave}
+                disabled={
+                    !(title !== '' && user !== '' && startHour !== endHour)
+                }
+            >
                 <Text>{'저장'}</Text>
             </style.SaveButton>
             <Spinner isLoading={isLoading} />
