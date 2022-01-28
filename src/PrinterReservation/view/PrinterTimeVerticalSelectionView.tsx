@@ -104,7 +104,11 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                             )}
                         />
                     ) : (
-                        <EmptyTime />
+                        <EmptyTime
+                            onPress={() => {
+                                console.log(item, 'printerOne')
+                            }}
+                        />
                     )}
                     {printerTwoReservation !== undefined ? (
                         <PrinterReservedTime
@@ -115,7 +119,11 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
                             )}
                         />
                     ) : (
-                        <EmptyTime />
+                        <EmptyTime
+                            onPress={() => {
+                                console.log(item, 'printerTwo')
+                            }}
+                        />
                     )}
                     <Spacer width={10} />
                 </View>
@@ -213,7 +221,7 @@ export const PrinterTimeVerticalSelectionView = (props: Props) => {
     )
 }
 
-const EmptyTime = styled.View({
+const EmptyTime = styled.Pressable({
     height: '100%',
     width: 150,
     borderColor: '#E0E0E0',

@@ -36,7 +36,7 @@ export const PrinterReservedTime = (props: Props) => {
     )
 }
 
-const Container = styled.View<{
+const Container = styled.Pressable<{
     backgroundColor: ColorValue
 }>((props) => ({
     height: '100%',
