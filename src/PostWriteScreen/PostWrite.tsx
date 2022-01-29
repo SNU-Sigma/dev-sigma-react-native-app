@@ -8,15 +8,17 @@ import {
     Alert,
     FlatList,
 } from 'react-native'
+import { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { PostAuthorImage, ProfileView } from '../MainScreen/PostsStyles'
 import { PostSubmitTouchableOpacity } from './PostWriteStyle'
+import Spinner from '../common/view/Spinner'
+import * as ImagePicker from 'expo-image-picker'
 import sigmaProfilePicture from '../assets/images/sigmaProfile.png'
 import galleryIcon from '../assets/images/gallery.png'
-import * as ImagePicker from 'expo-image-picker'
-import { useState } from 'react'
 import { PostAPI } from '../service/PostAPI'
-import { useNavigation } from '@react-navigation/native'
-import Spinner from '../common/view/Spinner'
+import { RootStackParamList } from '../../RootStackParamList'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 const renderPhotoItem = ({ item }: { item: string }) => {
     return (
@@ -25,8 +27,8 @@ const renderPhotoItem = ({ item }: { item: string }) => {
             style={{
                 width: 140,
                 height: 132,
-                marginTop: 20,
                 marginHorizontal: 4,
+                marginVertical: 8,
             }}
         />
     )
@@ -35,8 +37,8 @@ const renderPhotoItem = ({ item }: { item: string }) => {
 export default function PostWrite() {
     const [selectedImages, setSelectedImages] = useState<Array<string>>([])
     const [postContent, setPostContent] = useState<string>('')
-    const [isLoading, setIsLoading] = useState(false)
-    const navigation = useNavigation<any>()
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
 
     const handleSubmit = () => {
         setIsLoading(true)
@@ -83,7 +85,7 @@ export default function PostWrite() {
                 flex: 1,
                 backgroundColor: 'white',
                 paddingHorizontal: 12,
-                paddingTop: 16,
+                paddingVertical: 16,
             }}
         >
             <Spinner isLoading={isLoading} />
@@ -96,7 +98,7 @@ export default function PostWrite() {
                 <TouchableOpacity onPress={openImagePickerAsync}>
                     <Image
                         source={galleryIcon}
-                        style={{ marginHorizontal: 4, width: 24, height: 24 }}
+                        style={{ width: 24, height: 24 }}
                     />
                 </TouchableOpacity>
             </ProfileView>
@@ -113,7 +115,7 @@ export default function PostWrite() {
             )}
             <TextInput
                 style={{
-                    marginVertical: 20,
+                    marginVertical: 12,
                     textAlignVertical: 'top',
                     flex: 1,
                 }}

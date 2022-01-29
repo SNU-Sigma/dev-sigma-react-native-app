@@ -60,6 +60,7 @@ function RenderItem({ item }: { item: Post }) {
                 </View>
             </ProfileView>
             {item.isAnnouncement && <AdminImage source={adminMark} />}
+
             <ContentText numberOfLines={2}>{item.content}</ContentText>
             <MoreText
                 onPress={() =>
@@ -68,6 +69,7 @@ function RenderItem({ item }: { item: Post }) {
             >
                 더보기{' >'}
             </MoreText>
+
             {item.photos.length > 0 && (
                 <ImageView>
                     <Image
@@ -106,7 +108,7 @@ export default function Posts() {
             })
         }
     }, [isFocused])
-    const navigation = useNavigation<any>()
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
     return (
         <View
             style={{

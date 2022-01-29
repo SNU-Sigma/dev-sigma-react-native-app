@@ -2,15 +2,14 @@ import styled from '@emotion/native'
 import { Platform } from 'react-native'
 
 export const TitleText = styled.Text({
-    marginLeft: 30,
-    marginBottom: 7,
+    marginLeft: 32,
     fontSize: 14,
     fontWeight: 'bold',
 })
 
 export const PostView = styled.View({
     marginHorizontal: 24,
-    marginBottom: 16,
+    marginVertical: 8,
     paddingVertical: 12,
     paddingHorizontal: 20,
     backgroundColor: '#FFFFFF',
@@ -49,15 +48,15 @@ export const AdminImage = styled.Image({
 })
 
 export const ContentText = styled.Text({
-    marginTop: 10,
+    marginTop: 8,
     fontSize: 12,
-    lineHeight: 19,
+    lineHeight: 20,
     textAlign: 'justify',
 })
 
 export const MoreText = styled.Text({
-    marginTop: 5,
-    lineHeight: 19,
+    marginTop: 4,
+    lineHeight: 20,
     fontSize: 12,
     textAlign: 'right',
 })

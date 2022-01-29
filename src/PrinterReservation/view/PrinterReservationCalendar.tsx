@@ -102,7 +102,7 @@ export default function PrinterReservationCalendar({
             <View>
                 <PopUp visible={modalVisible} setVisible={setModalVisible} />
                 <style.X onPress={onOutHandler}>
-                    <Image source={require('../../assets/image/Out.png')} />
+                    <Image source={require('../../assets/images/Out.png')} />
                 </style.X>
                 <style.Title>{'제목'}</style.Title>
                 <style.TitleInput

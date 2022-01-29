@@ -44,7 +44,7 @@ export default function PrinterInfo({
         <View>
             <PopUp visible={modalVisible} setVisible={setModalVisible} />
             <style.X onPress={() => navigation.goBack()}>
-                <Image source={require('../../assets/image/Out.png')} />
+                <Image source={require('../../assets/images/Out.png')} />
             </style.X>
             <style.TitleInfo>{title}</style.TitleInfo>
             <style.DateInfo>

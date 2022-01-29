@@ -9,6 +9,8 @@ import {
     Platform,
     Alert,
 } from 'react-native'
+import { useState } from 'react'
+import { RouteProp } from '@react-navigation/native'
 import {
     PostAuthorImage,
     ProfileView,
@@ -21,18 +23,18 @@ import {
     CommentAuthorImage,
     CommentInputView,
 } from './PostDetailStyles'
+import { Post } from '../MainScreen/Posts'
 import { Comment } from '../MainScreen/Posts'
 import adminMark from '../assets/images/adminMark.png'
 import commentSubmitMark from '../assets/images/commentSubmit.png'
-//import sigmaProfilePicture from '../assets/images/sigmaProfile.png'
-import { useState } from 'react'
 import { PostAPI } from '../service/PostAPI'
-import { Post } from '../MainScreen/Posts'
+import { RootStackParamList } from '../../RootStackParamList'
 
 const renderPhotoItem = ({ item }: { item: string }) => {
     return (
         <Image
             source={{ uri: item }}
+            // TODO: uri: 'data:image/jpeg;base64,' + item 으로 수정해야 함
             style={{ width: 140, height: 132, margin: 4 }}
         />
     )
@@ -75,7 +77,7 @@ function CommentInput({
         <CommentInputView>
             <CommentAuthorImage source={{ uri: item.profilePicture }} />
             <TextInput
-                style={{ marginLeft: 8, flex: 1 }}
+                style={{ marginHorizontal: 8, flex: 1 }}
                 placeholder='댓글을 입력하세요.'
                 placeholderTextColor={'grey'}
                 value={commentContent}
@@ -94,7 +96,11 @@ function CommentInput({
     )
 }
 
-export default function PostDetail({ route }: { route: any }) {
+export default function PostDetail({
+    route,
+}: {
+    route: RouteProp<RootStackParamList, 'PostDetail'>
+}) {
     const { post: item } = route.params
     const [comments, setComments] = useState<Array<Comment>>(item.comments)
     return (
@@ -120,7 +126,7 @@ export default function PostDetail({ route }: { route: any }) {
                             </Text>
                         </View>
                     </ProfileView>
-                    {item.isAdmin && <AdminImage source={adminMark} />}
+                    {item.isAnnouncement && <AdminImage source={adminMark} />}
                     <ContentText>{item.content}</ContentText>
                     {item.photos.length > 0 && (
                         <FlatList
@@ -148,7 +154,6 @@ export default function PostDetail({ route }: { route: any }) {
                                         source={{ uri: comment.profilePicture }}
                                     />
                                     <View style={{ flex: 1 }}>
-                                        {/* 2줄 이상의 comment 를 위한 flex: 1 */}
                                         <Text
                                             style={{
                                                 fontSize: 14,
