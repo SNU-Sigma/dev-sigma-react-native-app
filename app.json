@@ -27,6 +27,8 @@
       "package": "snu.sigma.community"
     },
     "web": {
+      "lang": "ko",
+      "orientation": "portrait",
       "favicon": "./src/assets/images/favicon.png"
     }
   }
