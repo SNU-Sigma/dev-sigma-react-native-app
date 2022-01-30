@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "sigma-react-native",
+    "name": "시그마",
     "slug": "sigma-react-native",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/images/appIconSquare.png",
     "splash": {
-      "image": "./src/assets/images/start.png",
+      "image": "./src/assets/images/splashScreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,12 +21,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/images/appIconRound.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "snu.sigma.community"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "lang": "ko",
+      "orientation": "portrait",
+      "favicon": "./src/assets/images/favicon.png"
     }
   }
 }
