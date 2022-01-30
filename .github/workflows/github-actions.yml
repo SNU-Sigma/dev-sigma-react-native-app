@@ -46,8 +46,50 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          author_name: 'Preview (안드로이드)'
+          author_name: 'main 브랜치 preview (android)'
           text: "APK 다운로드: ${{ steps.regex_match.outputs.group1 }}"
+          fields: author, message
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()
+
+  preview-web:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+
+      - name: 🏗 Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: 5.x
+
+      - name: 📦 Install dependencies
+        run: yarn
+
+      - name: 👷 Create production build
+        run: expo build:web
+
+      - name: 🚀 Publish preview
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        id: firebase_hosting
+        with:
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_HOSTING }}"
+          expires: 30d
+          channelId: preview
+
+      - name: 💬 Comment in Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: 'main 브랜치 preview (web)'
+          text: "웹사이트 URL: ${{ steps.firebase_hosting.outputs.details_url }} (${{ steps.firebase_hosting.outputs.expire_time }} 만료)"
           fields: author, message
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
