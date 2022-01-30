@@ -1,8 +1,10 @@
-name: GitHub Actions
-on: [push] # 테스트 후 아래 주석으로 대체
-#  push:
-#    branches:
-#      - main
+name: Preview [main]
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   preview-android:
     runs-on: ubuntu-latest
