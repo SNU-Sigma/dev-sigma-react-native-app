@@ -2,5 +2,4 @@ tabWidth: 4
 semi: false
 singleQuote: true
 jsxSingleQuote: true
-parser: typescript
 trailingComma: all
