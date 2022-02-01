@@ -3,3 +3,10 @@ semi: false
 singleQuote: true
 jsxSingleQuote: true
 trailingComma: all
+overrides:
+  - files:
+      - '*.yml'
+      - '*.yaml'
+      - '*.json'
+    options:
+      tabWidth: 2
