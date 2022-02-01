@@ -2,5 +2,11 @@ tabWidth: 4
 semi: false
 singleQuote: true
 jsxSingleQuote: true
-parser: typescript
 trailingComma: all
+overrides:
+  - files:
+      - '*.yml'
+      - '*.yaml'
+      - '*.json'
+    options:
+      tabWidth: 2
