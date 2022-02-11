@@ -23,7 +23,7 @@ jobs:
         with:
           fail_on_error: true
 
-  TypeScript:
+  Typescript:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
@@ -38,25 +38,9 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn
 
-      - name: 🔍 Typescript Compile
-        run: |
-          export TSC_RESULT="$(tsc)"
-          TSC_RESULT="${TSC_RESULT//'%'/'%25'}"
-          TSC_RESULT="${TSC_RESULT//$'\n'/'%0A'}"
-          TSC_RESULT="${TSC_RESULT//$'\r'/'%0D'}"
-          echo "::set-output name=tsc_result::$(echo "$TSC_RESULT")"
-        id: tsc
-
-      - name: 🚫 Check for errors
-        if: ${{ steps.tsc.outputs.tsc_result != '' }}
-        uses: actions/github-script@v3
+      - name: 🐶 Activate Review Dog
+        uses: EPMatt/reviewdog-action-tsc@v1
         with:
-          script: |
-            core.setFailed('Typescript Compile Error')
-
-      - name: 💬 Write comment
-        if: ${{ failure() }}
-        uses: thollander/actions-comment-pull-request@v1
-        with:
-          message: '**🚫 TypeScript Error**<br/><pre><code>${{ steps.tsc.outputs.tsc_result }}</code></pre>'
-          GITHUB_TOKEN: ${{ github.token }}
+          filter_mode: nofilter
+          reporter: github-pr-review
+          fail_on_error: true
